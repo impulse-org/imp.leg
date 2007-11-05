@@ -11,6 +11,6 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.imp.runtime,
  lpg.runtime,
  org.eclipse.platform.source,
- com.ibm.watson.smapifier,
- org.eclipse.jdt.core
+ org.eclipse.jdt.core,
+ org.eclipse.imp.smapifier
 Eclipse-LazyStart: true

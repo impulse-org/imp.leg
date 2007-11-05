@@ -4,8 +4,9 @@ import org.eclipse.core.resources.IProject;
 
 import org.eclipse.imp.builder.ProjectNatureBase;
 import org.eclipse.imp.runtime.IPluginLog;
+import org.eclipse.imp.smapifier.builder.SmapiProjectNature;
 
-import com.ibm.watson.smapifier.builder.SmapiProjectNature;
+
 
 import org.eclipse.imp.leg.Activator;
 
