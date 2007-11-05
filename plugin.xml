@@ -54,5 +54,20 @@
             type="org.eclipse.core.resources.problemmarker">
       </super>
    </extension>
+   <extension
+         point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            objectClass="org.eclipse.jdt.core.IJavaProject"
+            adaptable="false"
+            nameFilter="*"
+            id="LEG.imp.projectContextMenu">
+         <action
+               label="Enable LEG Builder"
+               tooltip="Enable the LEG builder for this project"
+               class="LEG.imp.actions.EnableNature"
+               id="LEG.imp.actions.enableNatureAction">
+         </action>
+      </objectContribution>
+   </extension>
 
 </plugin>
