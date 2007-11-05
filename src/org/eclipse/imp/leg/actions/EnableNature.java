@@ -1,4 +1,4 @@
-package LEG.imp.actions;
+package org.eclipse.imp.leg.actions;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.imp.leg.builders.LEGNature;

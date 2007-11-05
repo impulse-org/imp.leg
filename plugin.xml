@@ -64,7 +64,7 @@
          <action
                label="Enable LEG Builder"
                tooltip="Enable the LEG builder for this project"
-               class="LEG.imp.actions.EnableNature"
+               class="org.eclipse.imp.leg.actions.EnableNature"
                id="LEG.imp.actions.enableNatureAction">
          </action>
       </objectContribution>
