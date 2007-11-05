@@ -1,14 +1,13 @@
 package LEG.imp.actions;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.imp.leg.builders.LEGNature;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.IWorkbenchWindowActionDelegate;
-
-import LEG.imp.builders.LEGNature;
 
 public class EnableNature implements IWorkbenchWindowActionDelegate {
     private IProject fProject;
