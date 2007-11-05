@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.imp.runtime.languageDescription">
+      <language
+            extensions="leg"
+            description="Little Expression Grammar"
+            language="LEG">
+      </language>
+   </extension>
+
+</plugin>
