@@ -10,5 +10,14 @@
             language="LEG">
       </language>
    </extension>
+   <extension
+         id="org.eclipse.imp.leg.parserWrapper"
+         name="LEG Parser Wrapper"
+         point="org.eclipse.imp.runtime.parser">
+      <parserWrapper
+            class="org.eclipse.imp.leg.parser.LEGParseController"
+            language="LEG">
+      </parserWrapper>
+   </extension>
 
 </plugin>
