@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<formatter>
+    <language>LEG</language>
+    <rules>
+        <rule>
+            <box>
+        H hs=0 [ "$id0" "(" HOV [ G gs=2 op=H hs=0 ["$exprs0"] ] ")" ] 
+   
+          </box>
+        </rule>
+        <rule>
+            <box>
+        H hs=0 [ "$id0" "(" HOV [ G gs=2 op=H hs=0 ["$exprs0"] ] ")" ";"  ] 
+   
+          </box>
+        </rule>
+        <rule>
+            <box> 
+        HV [ "int" "$id0" ";" ]        
+      </box>
+        </rule>
+        <rule>
+            <box>
+        V [  H [ "if" H hs=0 ["("  "$expr0" ")"] "{" ] I [ V [ "$stats0" ]  ] "}"  ]
+             </box>
+        </rule>
+        <rule>
+            <box>
+        V [  H [ "if" H hs=0 ["(" "$expr0" ")"] "{" ] I [ V [ "$stats0" ] ]   "}" H [ "else" "{"] I [ V [ "$stats1" ] ] "}" ]
+        </box>
+        </rule>
+        <rule>
+            <box>
+        V [  H [ "if" H hs=0 ["(" "$expr0" ")"] "{" ] I [ "$stats0" ]   "}" 
+               H [ "else" "if" "(" "$expr1" ")" "{"] I [ "$stats1" ] "}" H [ "else" "{" ] I [ "$stats2" ] "}" ]
+        </box>
+        </rule>
+        <rule>
+            <box>
+    V [ H [ "while" H hs=0 [ "(" "$expr0" ")" ] "{" ] I [ V [ "$stats0" ] ] "}" ]
+        </box>
+        </rule>
+        <rule>
+            <box>
+    HV [ H [ "while" H hs=0 [ "(" "$expr0" ")" ]  ] I [ HV [ "$stat0" ] ]  ]
+        </box>
+        </rule>
+        <rule>
+            <box>
+        H [ "return" H hs=0 [ "$expr0" ";" ] ]
+        </box>
+        </rule>
+        <rule>
+            <box>
+      V [  H ["$type0" H hs=0 [ "$id0" "("  HV [ G op=H hs=0 gs=2 [ "$params0" ]  ] ")" ]  "{" ] I [ V [ "$stats0" ]  ] "}"  ]
+        </box>
+        </rule>
+        <rule>
+            <box>
+         H [ "return" H  hs=0 [ "$expr0" ";" ] ] 
+       </box>
+        </rule>
+        <rule>
+            <box> 
+         H [ "int" H hs=0 ["$id0"  ";" ]]
+       </box>
+        </rule>
+        <rule>
+            <box> 
+         H [ H [ "int" "$id1" "=" ] H hs=0 [ HOV [ "$expr0" ]  ";" ]]
+       </box>
+        </rule>
+        <rule>
+            <box> 
+         HV [ H [ "$expr0" "+" ]  "1" ]
+       </box>
+        </rule>
+        <rule>
+            <box> 
+         H [ H [ "$id0" "="] H hs=0 [ HOV [ "$expr0" ] ";" ] ]
+       </box>
+        </rule>
+    </rules>
+    <example>int f() { }
+</example>
+</formatter>
