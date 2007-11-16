@@ -1,24 +1,26 @@
 %options package=org.eclipse.imp.leg.parser
-%options template=dtParserTemplate.gi
+%options template=btParserTemplateF.gi
 %options import_terminals=LEGLexer.gi
 %options parent_saved,automatic_ast=toplevel,visitor=preorder,ast_directory=./Ast,ast_type=ASTNode
 --
 -- This is just a sample grammar and not a real grammar for LEG
 --
 
-%Globals
+%Globals   
     /.import org.eclipse.imp.parser.IParser;
     import java.util.Hashtable;
     import java.util.Stack;
-    ./
-%End
-
+    ./ 
+%End 
+  
 
 
 %Define
     $ast_class /.Object./
     $additional_interfaces /., IParser./
 %End
+
+
 
 %Terminals
     --            
@@ -41,6 +43,7 @@
          void
          while
          
+         METAVARIABLE
          IDENTIFIER 
          NUMBER
          DoubleLiteral
@@ -70,7 +73,7 @@
 %End
 
 %Start
-    compilationUnit
+    pattern
 %End
 
 %Recover
@@ -83,28 +86,41 @@
     -- 
     --  Here are some example rules:
     -- 
+    pattern ::= 
+              | statement
+              | expression
+              | functionDeclaration
+              | compilationUnit
+              
     compilationUnit$$functionDeclaration ::= $empty
                                            | compilationUnit functionDeclaration
+                                           | METAVARIABLE_functionDeclarations
 
     functionDeclaration ::= functionHeader block
-    /.
+     /.
         $action_type.SymbolTable symbolTable;
         public void setSymbolTable($action_type.SymbolTable symbolTable) { this.symbolTable = symbolTable; }
         public $action_type.SymbolTable getSymbolTable() { return symbolTable; }
     ./
+    | METAVARIABLE_functionDeclaration
     
     functionHeader ::= Type identifier '(' parameters ')'
     
     parameters$$declaration ::= $empty
                               | parameterList
+                              | METAVARIABLE_parameters
 
     parameterList$$declaration ::= declaration
                                  | parameterList ',' declaration
+                                 | META_VARIABLE_parameterList
                                                             
     declaration ::= primitiveType identifier
+                 | METAVARIABLE_declaration
 
     stmtList$$statement ::= $empty
                           | stmtList statement
+                          | METAVARIABLE_statements
+                          
     statement ::= declarationStmt
                 | assignmentStmt
                 | ifStmt
@@ -113,6 +129,7 @@
                 | block
                 | functionStmt
                 | ';'
+                | METAVARIABLE_statement
 
     block ::= '{' stmtList '}'
     /.
@@ -120,12 +137,14 @@
         public void setSymbolTable($action_type.SymbolTable symbolTable) { this.symbolTable = symbolTable; }
         public $action_type.SymbolTable getSymbolTable() { return symbolTable; }
     ./
+  
 
     declarationStmt ::= declaration ';'
                       | declaration '=' expression ';'
                        
     Type ::= primitiveType
            | void
+           | METAVARIABLE_Type
 
     primitiveType ::= boolean
                     | double
@@ -149,12 +168,15 @@
                  | expression '==' term
                  | expression '!=' term
                  | term
+                 | METAVARIABLE_expression
+                 
     term ::= NUMBER
            | DoubleLiteral
            | true
            | false
            | identifier
            | functionCall
+           | METAVARIABLE_term
            
     functionCall ::= identifier '(' expressions ')'
 
@@ -162,6 +184,8 @@
     
     expressions$$expression ::= $empty
                               | expressionList
+                              | METAVARIABLE_expressions
+                              
     expressionList$$expression ::= expression
                                  | expressionList ',' expression
 
@@ -171,9 +195,13 @@
         public void setDeclaration(IAst decl) { this.decl = decl; }
         public IAst getDeclaration() { return decl; }
     ./
+    
+    | METAVARIABLE_identifier
+    
 
     BadAssignment ::= identifier '=' MissingExpression 
 %End
+
 
 $Headers
     /.
@@ -206,8 +234,8 @@ $Headers
             for ( ; n != null; n = n.getParent())
                 if (n instanceof block)
                      return ((block) n).getSymbolTable();
-                else if (n instanceof functionDeclaration)
-                     return ((functionDeclaration) n).getSymbolTable();
+                else if (n instanceof functionDeclaration0)
+                     return ((functionDeclaration0) n).getSymbolTable();
             return getTopLevelSymbolTable();
         }
 
@@ -228,31 +256,37 @@ $Headers
             public void unimplementedVisitor(String s) { /* Useful for debugging: System.out.println(s); */ }
             
             public void emitError(IToken id, String message) {
-                getMessageHandler().handleMessage(ParseErrorCodes.NO_MESSAGE_CODE,
-                                                  getLexStream().getLocation(id.getStartOffset(), id.getEndOffset()),
-                                                  getLexStream().getLocation(0, 0),
-                                                  getFileName(),
+               if (prsStream.getMessageHandler() != null ) {
+                prsStream.getMessageHandler().handleMessage(ParseErrorCodes.NO_MESSAGE_CODE,
+                                                  prsStream.getLexStream().getLocation(id.getStartOffset(), id.getEndOffset()),
+                                                  prsStream.getLexStream().getLocation(0, 0),
+                                                  prsStream.getFileName(),
                                                   new String [] { message });
+                                                  }
             }
             
             
             public void emitError(ASTNode node, String message) {
-                getMessageHandler().handleMessage(
+              if (prsStream.getMessageHandler() != null ) {
+                prsStream.getMessageHandler().handleMessage(
                     ParseErrorCodes.NO_MESSAGE_CODE,
-                    getLexStream().getLocation(
+                    prsStream.getLexStream().getLocation(
                         node.getLeftIToken().getStartOffset(), node.getRightIToken().getEndOffset()),
-                    getLexStream().getLocation(0, 0),
-                    getFileName(),
+                    prsStream.getLexStream().getLocation(0, 0),
+                    prsStream.getFileName(),
                     new String [] { message });
+                    }
             }
 
            public void emitError(int startOffset, int endOffset, String message) {
-                getMessageHandler().handleMessage(
+             if (prsStream.getMessageHandler() != null ) {
+                prsStream.getMessageHandler().handleMessage(
                     ParseErrorCodes.NO_MESSAGE_CODE,
-                    getLexStream().getLocation(startOffset, endOffset),
-                    getLexStream().getLocation(0, 0),
-                    getFileName(),
+                    prsStream.getLexStream().getLocation(startOffset, endOffset),
+                    prsStream.getLexStream().getLocation(0, 0),
+                    prsStream.getFileName(),
                     new String [] { message });
+                    }
             }
 
             
@@ -263,9 +297,9 @@ $Headers
 
             public void endVisit(block n) { symbolTableStack.pop(); }
 
-            public boolean visit(functionDeclaration n) {
+            public boolean visit(functionDeclaration0 n) {
                 functionHeader fh = n.getfunctionHeader();
-                IToken id = fh.getidentifier().getIToken();
+                IToken id = fh.getidentifier().getLeftIToken();
                 SymbolTable symbol_table = (SymbolTable) symbolTableStack.peek();
                 if (symbol_table.get(id.toString()) == null)
                	     // SMS 11 Jun 2007; pursuant to fixing bug #190
@@ -281,10 +315,10 @@ $Headers
                 return true;
             }
             
-            public void endVisit(functionDeclaration n) { symbolTableStack.pop(); }
+            public void endVisit(functionDeclaration0 n) { symbolTableStack.pop(); }
 
-            public boolean visit(declaration n) {
-                IToken id = n.getidentifier().getIToken();
+            public boolean visit(declaration0 n) {
+                IToken id = n.getidentifier().getLeftIToken();
                 SymbolTable symbol_table = (SymbolTable) symbolTableStack.peek();
                 if (symbol_table.get(id.toString()) == null)
                      symbol_table.put(id.toString(), n);
@@ -292,7 +326,7 @@ $Headers
                 return true;
             }
 
-            public boolean visit(identifier n) {
+            public boolean visit(identifier0 n) {
                 IToken id = n.getIDENTIFIER();
                 IAst decl = ((SymbolTable) symbolTableStack.peek()).findDeclaration(id.toString());
                 if (decl == null)

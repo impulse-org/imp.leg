@@ -13,5 +13,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.platform.source,
  org.eclipse.jdt.core,
  org.eclipse.imp.smapifier,
- org.eclipse.jface.text
+ org.eclipse.jface.text,
+ org.eclipse.imp.formatting,
+ org.eclipse.imp.xform
 Eclipse-LazyStart: true

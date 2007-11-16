@@ -48,6 +48,18 @@
         RIGHTPAREN
         LEFTBRACE
         RIGHTBRACE
+        METAVARIABLE_functionDeclaration
+        METAVARIABLE_expression
+        METAVARIABLE_expressions
+        METAVARIABLE_statement
+        METAVARIABLE_statements
+        METAVARIABLE_parameters
+        METAVARIABLE_Type
+        METAVARIABLE_identifier
+	METAVARIABLE_parameterList
+	METAVARIABLE_declaration
+	METAVARIABLE_functionDeclarations
+	METAVARIABLE_term
 %End
 
 %Terminals
@@ -107,7 +119,94 @@
     Token
 %End
 
+
 %Rules
+    Token ::= '$' 'f' 'u' 'n' 'c' number
+         /.
+      $BeginJava
+         makeToken($_METAVARIABLE_functionDeclaration);
+      $EndJava
+     ./
+        
+    Token ::= '$' 'f' 'u' 'n' 'c' 's' number
+         /.
+      $BeginJava
+         makeToken($_METAVARIABLE_functionDeclarations);
+      $EndJava
+     ./
+     
+    Token ::= '$' 'e' 'x' 'p' 'r' number
+       /.
+      $BeginJava
+         makeToken($_METAVARIABLE_expression);
+      $EndJava
+     ./
+     
+      Token ::= '$' 's' 't' 'a' 't' number
+       /.
+      $BeginJava
+         makeToken($_METAVARIABLE_statement);
+      $EndJava
+     ./
+     
+       Token ::= '$' 's' 't' 'a' 't' 's' number
+       /.
+      $BeginJava
+         makeToken($_METAVARIABLE_statements);
+      $EndJava
+     ./
+     
+     Token ::= '$' 'e' 'x' 'p' 'r' 's' number
+       /.
+      $BeginJava
+         makeToken($_METAVARIABLE_expressions);
+      $EndJava
+     ./
+     
+       Token ::= '$' 't' 'e' 'r' 'm'  number
+       /.
+      $BeginJava
+         makeToken($_METAVARIABLE_term);
+      $EndJava
+     ./
+     
+     Token ::= '$' 'i' 'd' number
+       /.
+      $BeginJava
+         makeToken($_METAVARIABLE_identifier);
+      $EndJava
+     ./
+     
+       Token ::= '$' 't' 'y' 'p' 'e' number
+       /.
+      $BeginJava
+         makeToken($_METAVARIABLE_Type);
+      $EndJava
+     ./
+     
+        Token ::= '$' 'p' 'a' 'r' 'a' 'm' 's' number
+       /.
+      $BeginJava
+         makeToken($_METAVARIABLE_parameters);
+      $EndJava
+     ./
+     
+          Token ::= '$' 'p' 'a' 'r' 'a' 'm' 'l' 'i' 's' 't'  number
+       /.
+      $BeginJava
+         makeToken($_METAVARIABLE_parameterList);
+      $EndJava
+     ./
+     
+       
+          Token ::= '$' 'd' 'e' 'c' 'l' number
+       /.
+      $BeginJava
+         makeToken($_METAVARIABLE_declaration);
+      $EndJava
+     ./
+     
+     
     Token ::= identifier
         /.$BeginJava
                     checkForKeyWord();
