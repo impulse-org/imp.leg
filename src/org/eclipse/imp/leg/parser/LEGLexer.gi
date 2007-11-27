@@ -1,9 +1,6 @@
 %options package=org.eclipse.imp.leg.parser
 %options template=LexerTemplate.gi
 %options filter=LEGKWLexer.gi
---
--- This is just a sample lexer and not a real lexer for LEG
---
 
 %Globals
     /.import java.util.*;
@@ -21,14 +18,6 @@
 %End
 
 %Export
-    --
-    -- List all the token types the lexer will directly process
-    -- and export to the parser. If a keyword lexer is used as
-    -- a filter for this lexer, it may export a set of keywords
-    -- that will also be passed along to the parser.
-    -- 
-    -- For example:
-    --
         SINGLE_LINE_COMMENT
         IDENTIFIER 
         NUMBER
