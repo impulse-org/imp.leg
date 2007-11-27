@@ -62,7 +62,7 @@ public class LEGASTAdapter extends ASTAdapterBase implements ILanguageService,
 			case TK_METAVARIABLE_term:
 			case TK_METAVARIABLE_Type:
 			case TK_METAVARIABLE_declaration:
-			case TK_META_VARIABLE_parameterList:
+			case TK_METAVARIABLE_parameterList:
 				return true;
 			default:
 				return false;
