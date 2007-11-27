@@ -2,9 +2,6 @@
 %options template=btParserTemplateF.gi
 %options import_terminals=LEGLexer.gi
 %options parent_saved,automatic_ast=toplevel,visitor=preorder,ast_directory=./Ast,ast_type=ASTNode
---
--- This is just a sample grammar and not a real grammar for LEG
---
 
 %Globals   
     /.import org.eclipse.imp.parser.IParser;
@@ -12,41 +9,13 @@
     import java.util.Stack;
     ./ 
 %End 
-  
-
 
 %Define
     $ast_class /.Object./
     $additional_interfaces /., IParser./
 %End
 
-
-
 %Terminals
-    --            
-    -- Here, you may list terminals needed by this grammar.
-    -- Furthermore, a terminal may be mapped into an alias
-    -- that can also be used in a grammar rule. In addition,
-    -- when an alias is specified here it instructs the
-    -- generated parser to use the alias in question when
-    -- referring to the symbol to which it is aliased. For
-    -- example, consider the following definitions:
-    --
-         boolean
-         double
-         else
-         false
-         if
-         int
-         return
-         true
-         void
-         while
-         
-         METAVARIABLE
-         IDENTIFIER 
-         NUMBER
-         DoubleLiteral
          COMMA ::= ','
          SEMICOLON ::= ';'
          PLUS ::= '+'
@@ -62,14 +31,6 @@
          RIGHTPAREN ::= ')'
          LEFTBRACE ::= '{'
          RIGHTBRACE ::= '}'
-    --
-    -- Here the terminals int, float, IDENTIFIER and NUMBER are
-    -- defined without an alias; SEMICOLON is aliased to ';';
-    -- PLUS is aliased to '+'... etc...
-    --
-    -- Note that the terminals that do not have aliases are declared
-    -- above only for documentation purposes.
-    --
 %End
 
 %Start
@@ -81,18 +42,13 @@
 %End
 
 %Rules
-    -- In this section you list all the rules for your grammar.
-    -- When reduced, each rule will produce one Ast node.
-    -- 
-    --  Here are some example rules:
-    -- 
     pattern ::= 
               | statement
               | expression
               | functionDeclaration
               | compilationUnit
               
-    compilationUnit$$functionDeclaration ::= $empty
+    compilationUnit$$functionDeclaration ::= %empty
                                            | compilationUnit functionDeclaration
                                            | METAVARIABLE_functionDeclarations
 
@@ -106,18 +62,18 @@
     
     functionHeader ::= Type identifier '(' parameters ')'
     
-    parameters$$declaration ::= $empty
+    parameters$$declaration ::= %empty
                               | parameterList
                               | METAVARIABLE_parameters
 
     parameterList$$declaration ::= declaration
                                  | parameterList ',' declaration
-                                 | META_VARIABLE_parameterList
+                                 | METAVARIABLE_parameterList
                                                             
     declaration ::= primitiveType identifier
                  | METAVARIABLE_declaration
 
-    stmtList$$statement ::= $empty
+    stmtList$$statement ::= %empty
                           | stmtList statement
                           | METAVARIABLE_statements
                           
@@ -182,7 +138,7 @@
 
     functionStmt ::= functionCall ';'
     
-    expressions$$expression ::= $empty
+    expressions$$expression ::= %empty
                               | expressionList
                               | METAVARIABLE_expressions
                               
@@ -203,7 +159,7 @@
 %End
 
 
-$Headers
+%Headers
     /.
         public class SymbolTable extends Hashtable {
             SymbolTable parent;
