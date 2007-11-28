@@ -11,13 +11,11 @@
    <extension
          point="org.eclipse.imp.formatting.formattingSpecification">
       <formattingSpecification
-            file="src/org/eclipse/imp/leg/editor/LEG.fsp">
+            astAdapter="org.eclipse.imp.leg.parser.LEGASTAdapter"
+            file="src/org/eclipse/imp/leg/editor/LEG.fsp"
+            language="LEG"
+            parseController="org.eclipse.imp.leg.parser.LEGParseController">
       </formattingSpecification>
-   </extension>
-    <extension
-         point="org.eclipse.imp.formatting.astAdapter">
-          <astAdapter class="org.eclipse.imp.leg.parser.LEGASTAdapter" language="LEG">
-         </astAdapter>
    </extension>
    <extension
          point="org.eclipse.imp.runtime.languageDescription">
