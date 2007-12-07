@@ -1,5 +1,5 @@
 %options package=org.eclipse.imp.leg.parser
-%options template=LexerTemplate.gi
+%options template=LexerTemplateF.gi
 %options filter=LEGKWLexer.gi
 
 %Globals
@@ -14,7 +14,7 @@
 %End
 
 %Include
-    LexerBasicMap.gi
+    LexerBasicMapF.gi
 %End
 
 %Export

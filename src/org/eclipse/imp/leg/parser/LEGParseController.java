@@ -41,20 +41,6 @@ public class LEGParseController extends SimpleLPGParseController implements
 	public void initialize(IPath filePath, ISourceProject project,
 			IMessageHandler handler) {
 		super.initialize(filePath, project, handler);
-
-		IPath pathToUse;
-		IPath projLoc = project.getRawProject().getLocation();
-
-		if (!filePath.isAbsolute()) {
-			pathToUse = projLoc.append(filePath);
-		} else {
-			pathToUse = filePath;
-		}
-
-		createLexerAndParser(pathToUse);
-
-		parser.getParseStream().resetTokenStream();
-		parser.getParseStream().setMessageHandler(handler);
 	}
 
 	public IParser getParser() {
@@ -73,11 +59,6 @@ public class LEGParseController extends SimpleLPGParseController implements
 	public LEGParseController() {
 	}
 
-	private void createLexerAndParser(IPath filePath) {
-		lexer = new LEGLexer();
-		parser = new LEGParser(lexer);
-	}
-
 	/**
 	 * setFilePath() should be called before calling this method.
 	 */
@@ -86,12 +67,15 @@ public class LEGParseController extends SimpleLPGParseController implements
 		PMMonitor my_monitor = new PMMonitor(monitor);
 		char[] contentsArray = contents.toCharArray();
 
-		//createLexerAndParser(fFilePath); // todo remove this after Phil has fixed LPG
-		lexer = new LEGLexer();
-		parser.reset(lexer.getLexStream());
+		if (lexer == null) {
+		  lexer = new LEGLexer();
+		}
+		lexer.reset(contentsArray, fFilePath.toPortableString());
 		
-		lexer.initialize(contentsArray, fFilePath.toPortableString());
-		parser.getParseStream().resetTokenStream();
+		if (parser == null) {
+			parser = new LEGParser(lexer.getLexStream());
+		}
+		parser.reset(lexer.getLexStream());
 		parser.getParseStream().setMessageHandler(handler);
 
 		lexer.lexer(my_monitor, parser.getParseStream()); // Lex the stream to

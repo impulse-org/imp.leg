@@ -8,12 +8,16 @@ import java.util.Stack;
 
 public class LEGParser implements RuleAction, IParser
 {
-    private PrsStream prsStream;
+    private PrsStream prsStream = null;
     
-    private static ParseTable prsTable = new LEGParserprs();
-    private BacktrackingParser btParser;
+    private boolean unimplementedSymbolsWarning = false;
 
+    private static ParseTable prsTable = new LEGParserprs();
+    public ParseTable getParseTable() { return prsTable; }
+
+    private BacktrackingParser btParser = null;
     public BacktrackingParser getParser() { return btParser; }
+
     private void setResult(Object object) { btParser.setSym1(object); }
     public Object getRhsSym(int i) { return btParser.getSym(i); }
 
@@ -47,12 +51,8 @@ public class LEGParser implements RuleAction, IParser
 
     public void reset(ILexStream lexStream)
     {
-        prsStream = new PrsStream(lexStream) {
-        	@Override
-        	public String[] orderedTerminalSymbols() {
-        		return LEGParserprs.orderedTerminalSymbols;
-        	}
-        };
+        prsStream = new PrsStream(lexStream);
+        btParser.reset(prsStream);
 
         try
         {
@@ -64,14 +64,16 @@ public class LEGParser implements RuleAction, IParser
         }
         catch(UnimplementedTerminalsException e)
         {
-            java.util.ArrayList unimplemented_symbols = e.getSymbols();
-            System.out.println("The Lexer will not scan the following token(s):");
-            for (int i = 0; i < unimplemented_symbols.size(); i++)
-            {
-                Integer id = (Integer) unimplemented_symbols.get(i);
-                System.out.println("    " + LEGParsersym.orderedTerminalSymbols[id.intValue()]);               
+            if (unimplementedSymbolsWarning) {
+                java.util.ArrayList unimplemented_symbols = e.getSymbols();
+                System.out.println("The Lexer will not scan the following token(s):");
+                for (int i = 0; i < unimplemented_symbols.size(); i++)
+                {
+                    Integer id = (Integer) unimplemented_symbols.get(i);
+                    System.out.println("    " + LEGParsersym.orderedTerminalSymbols[id.intValue()]);               
+                }
+                System.out.println();
             }
-            System.out.println();                        
         }
         catch(UndefinedEofSymbolException e)
         {
@@ -80,11 +82,27 @@ public class LEGParser implements RuleAction, IParser
                                  LEGParsersym.orderedTerminalSymbols[LEGParserprs.EOFT_SYMBOL]));
         } 
     }
-
-    public LEGParser() {}
+    
+    public LEGParser()
+    {
+        try
+        {
+            btParser = new BacktrackingParser(prsStream, prsTable, (RuleAction) this);
+        }
+        catch (NotBacktrackParseTableException e)
+        {
+            throw new Error(new NotBacktrackParseTableException
+                                ("Regenerate LEGParserprs.java with -BACKTRACK option"));
+        }
+        catch (BadParseSymFileException e)
+        {
+            throw new Error(new BadParseSymFileException("Bad Parser Symbol File -- LEGParsersym.java"));
+        }
+    }
     
     public LEGParser(ILexStream lexStream)
     {
+        this();
         reset(lexStream);
     }
     
@@ -110,20 +128,8 @@ public class LEGParser implements RuleAction, IParser
 
     public Object parser(Monitor monitor, int error_repair_count)
     {
-        try
-        {
-            btParser = new BacktrackingParser(monitor, prsStream, prsTable, (RuleAction) this);
-        }
-        catch (NotBacktrackParseTableException e)
-        {
-            throw new Error(new NotBacktrackParseTableException
-                                ("Regenerate LEGParserprs.java with -BACKTRACK option"));
-        }
-        catch (BadParseSymFileException e)
-        {
-            throw new Error(new BadParseSymFileException("Bad Parser Symbol File -- LEGParsersym.java"));
-        }
-
+        btParser.setMonitor(monitor);
+        
         try
         {
             return (Object) btParser.fuzzyParse(error_repair_count);
@@ -283,7 +289,7 @@ public class LEGParser implements RuleAction, IParser
             // Rule 1:  pattern ::=
             //
             case 1: {
-                //#line 89 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
+                //#line 45 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
                 setResult(null);
                 break;
             } 
@@ -311,7 +317,7 @@ public class LEGParser implements RuleAction, IParser
             // Rule 6:  compilationUnit ::= $Empty
             //
             case 6: {
-                //#line 95 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
+                //#line 51 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
                 setResult(
                     new functionDeclarationList(getLeftIToken(), getRightIToken(), true /* left recursive */)
                 );
@@ -321,7 +327,7 @@ public class LEGParser implements RuleAction, IParser
             // Rule 7:  compilationUnit ::= compilationUnit functionDeclaration
             //
             case 7: {
-                //#line 96 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
+                //#line 52 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
                 ((functionDeclarationList)getRhsSym(1)).add((IfunctionDeclaration)getRhsSym(2));
                 break;
             } 
@@ -329,7 +335,7 @@ public class LEGParser implements RuleAction, IParser
             // Rule 8:  compilationUnit ::= METAVARIABLE_functionDeclarations
             //
             case 8: {
-                //#line 97 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
+                //#line 53 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
                 setResult(
                     new functionDeclarationList(getLeftIToken(), getRightIToken(), true /* left recursive */)
                 );
@@ -339,7 +345,7 @@ public class LEGParser implements RuleAction, IParser
             // Rule 9:  functionDeclaration ::= functionHeader block
             //
             case 9: {
-                //#line 99 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
+                //#line 55 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
                 setResult(
                     new functionDeclaration0(LEGParser.this, getLeftIToken(), getRightIToken(),
                                              (functionHeader)getRhsSym(1),
@@ -351,7 +357,7 @@ public class LEGParser implements RuleAction, IParser
             // Rule 10:  functionDeclaration ::= METAVARIABLE_functionDeclaration
             //
             case 10: {
-                //#line 105 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
+                //#line 61 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
                 setResult(
                     new functionDeclaration1(getRhsIToken(1))
                 );
@@ -361,7 +367,7 @@ public class LEGParser implements RuleAction, IParser
             // Rule 11:  functionHeader ::= Type identifier ( parameters )
             //
             case 11: {
-                //#line 107 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
+                //#line 63 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
                 setResult(
                     new functionHeader(getLeftIToken(), getRightIToken(),
                                        (IType)getRhsSym(1),
@@ -376,7 +382,7 @@ public class LEGParser implements RuleAction, IParser
             // Rule 12:  parameters ::= $Empty
             //
             case 12: {
-                //#line 109 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
+                //#line 65 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
                 setResult(
                     new declarationList(getLeftIToken(), getRightIToken(), true /* left recursive */)
                 );
@@ -391,7 +397,7 @@ public class LEGParser implements RuleAction, IParser
             // Rule 14:  parameters ::= METAVARIABLE_parameters
             //
             case 14: {
-                //#line 111 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
+                //#line 67 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
                 setResult(
                     new declarationList(getLeftIToken(), getRightIToken(), true /* left recursive */)
                 );
@@ -401,7 +407,7 @@ public class LEGParser implements RuleAction, IParser
             // Rule 15:  parameterList ::= declaration
             //
             case 15: {
-                //#line 113 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
+                //#line 69 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
                 setResult(
                     new declarationList((Ideclaration)getRhsSym(1), true /* left recursive */)
                 );
@@ -411,15 +417,15 @@ public class LEGParser implements RuleAction, IParser
             // Rule 16:  parameterList ::= parameterList , declaration
             //
             case 16: {
-                //#line 114 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
+                //#line 70 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
                 ((declarationList)getRhsSym(1)).add((Ideclaration)getRhsSym(3));
                 break;
             } 
             //
-            // Rule 17:  parameterList ::= META_VARIABLE_parameterList
+            // Rule 17:  parameterList ::= METAVARIABLE_parameterList
             //
             case 17: {
-                //#line 115 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
+                //#line 71 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
                 setResult(
                     new declarationList(getLeftIToken(), getRightIToken(), true /* left recursive */)
                 );
@@ -429,7 +435,7 @@ public class LEGParser implements RuleAction, IParser
             // Rule 18:  declaration ::= primitiveType identifier
             //
             case 18: {
-                //#line 117 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
+                //#line 73 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
                 setResult(
                     new declaration0(getLeftIToken(), getRightIToken(),
                                      (IprimitiveType)getRhsSym(1),
@@ -441,7 +447,7 @@ public class LEGParser implements RuleAction, IParser
             // Rule 19:  declaration ::= METAVARIABLE_declaration
             //
             case 19: {
-                //#line 118 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
+                //#line 74 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
                 setResult(
                     new declaration1(getRhsIToken(1))
                 );
@@ -451,7 +457,7 @@ public class LEGParser implements RuleAction, IParser
             // Rule 20:  stmtList ::= $Empty
             //
             case 20: {
-                //#line 120 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
+                //#line 76 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
                 setResult(
                     new statementList(getLeftIToken(), getRightIToken(), true /* left recursive */)
                 );
@@ -461,7 +467,7 @@ public class LEGParser implements RuleAction, IParser
             // Rule 21:  stmtList ::= stmtList statement
             //
             case 21: {
-                //#line 121 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
+                //#line 77 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
                 ((statementList)getRhsSym(1)).add((Istatement)getRhsSym(2));
                 break;
             } 
@@ -469,7 +475,7 @@ public class LEGParser implements RuleAction, IParser
             // Rule 22:  stmtList ::= METAVARIABLE_statements
             //
             case 22: {
-                //#line 122 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
+                //#line 78 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
                 setResult(
                     new statementList(getLeftIToken(), getRightIToken(), true /* left recursive */)
                 );
@@ -514,7 +520,7 @@ public class LEGParser implements RuleAction, IParser
             // Rule 30:  statement ::= ;
             //
             case 30: {
-                //#line 131 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
+                //#line 87 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
                 setResult(
                     new statement0(getRhsIToken(1))
                 );
@@ -524,7 +530,7 @@ public class LEGParser implements RuleAction, IParser
             // Rule 31:  statement ::= METAVARIABLE_statement
             //
             case 31: {
-                //#line 132 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
+                //#line 88 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
                 setResult(
                     new statement1(getRhsIToken(1))
                 );
@@ -534,7 +540,7 @@ public class LEGParser implements RuleAction, IParser
             // Rule 32:  block ::= { stmtList }
             //
             case 32: {
-                //#line 134 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
+                //#line 90 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
                 setResult(
                     new block(LEGParser.this, getLeftIToken(), getRightIToken(),
                               new ASTNodeToken(getRhsIToken(1)),
@@ -547,7 +553,7 @@ public class LEGParser implements RuleAction, IParser
             // Rule 33:  declarationStmt ::= declaration ;
             //
             case 33: {
-                //#line 142 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
+                //#line 98 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
                 setResult(
                     new declarationStmt0(getLeftIToken(), getRightIToken(),
                                          (Ideclaration)getRhsSym(1),
@@ -559,7 +565,7 @@ public class LEGParser implements RuleAction, IParser
             // Rule 34:  declarationStmt ::= declaration = expression ;
             //
             case 34: {
-                //#line 143 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
+                //#line 99 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
                 setResult(
                     new declarationStmt1(getLeftIToken(), getRightIToken(),
                                          (Ideclaration)getRhsSym(1),
@@ -578,7 +584,7 @@ public class LEGParser implements RuleAction, IParser
             // Rule 36:  Type ::= void
             //
             case 36: {
-                //#line 146 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
+                //#line 102 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
                 setResult(
                     new Type0(getRhsIToken(1))
                 );
@@ -588,7 +594,7 @@ public class LEGParser implements RuleAction, IParser
             // Rule 37:  Type ::= METAVARIABLE_Type
             //
             case 37: {
-                //#line 147 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
+                //#line 103 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
                 setResult(
                     new Type1(getRhsIToken(1))
                 );
@@ -598,7 +604,7 @@ public class LEGParser implements RuleAction, IParser
             // Rule 38:  primitiveType ::= boolean
             //
             case 38: {
-                //#line 149 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
+                //#line 105 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
                 setResult(
                     new primitiveType0(getRhsIToken(1))
                 );
@@ -608,7 +614,7 @@ public class LEGParser implements RuleAction, IParser
             // Rule 39:  primitiveType ::= double
             //
             case 39: {
-                //#line 150 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
+                //#line 106 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
                 setResult(
                     new primitiveType1(getRhsIToken(1))
                 );
@@ -618,7 +624,7 @@ public class LEGParser implements RuleAction, IParser
             // Rule 40:  primitiveType ::= int
             //
             case 40: {
-                //#line 151 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
+                //#line 107 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
                 setResult(
                     new primitiveType2(getRhsIToken(1))
                 );
@@ -628,7 +634,7 @@ public class LEGParser implements RuleAction, IParser
             // Rule 41:  assignmentStmt ::= identifier = expression ;
             //
             case 41: {
-                //#line 153 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
+                //#line 109 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
                 setResult(
                     new assignmentStmt(getLeftIToken(), getRightIToken(),
                                        (Iidentifier)getRhsSym(1),
@@ -647,7 +653,7 @@ public class LEGParser implements RuleAction, IParser
             // Rule 43:  ifStmt ::= if ( expression ) statement
             //
             case 43: {
-                //#line 155 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
+                //#line 111 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
                 setResult(
                     new ifStmt0(getLeftIToken(), getRightIToken(),
                                 new ASTNodeToken(getRhsIToken(1)),
@@ -662,7 +668,7 @@ public class LEGParser implements RuleAction, IParser
             // Rule 44:  ifStmt ::= if ( expression ) statement else statement
             //
             case 44: {
-                //#line 156 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
+                //#line 112 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
                 setResult(
                     new ifStmt1(getLeftIToken(), getRightIToken(),
                                 new ASTNodeToken(getRhsIToken(1)),
@@ -679,7 +685,7 @@ public class LEGParser implements RuleAction, IParser
             // Rule 45:  whileStmt ::= while ( expression ) statement
             //
             case 45: {
-                //#line 158 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
+                //#line 114 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
                 setResult(
                     new whileStmt(getLeftIToken(), getRightIToken(),
                                   new ASTNodeToken(getRhsIToken(1)),
@@ -694,7 +700,7 @@ public class LEGParser implements RuleAction, IParser
             // Rule 46:  returnStmt ::= return expression ;
             //
             case 46: {
-                //#line 160 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
+                //#line 116 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
                 setResult(
                     new returnStmt(getLeftIToken(), getRightIToken(),
                                    new ASTNodeToken(getRhsIToken(1)),
@@ -707,7 +713,7 @@ public class LEGParser implements RuleAction, IParser
             // Rule 47:  expression ::= expression + term
             //
             case 47: {
-                //#line 162 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
+                //#line 118 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
                 setResult(
                     new expression0(getLeftIToken(), getRightIToken(),
                                     (Iexpression)getRhsSym(1),
@@ -720,7 +726,7 @@ public class LEGParser implements RuleAction, IParser
             // Rule 48:  expression ::= expression - term
             //
             case 48: {
-                //#line 163 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
+                //#line 119 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
                 setResult(
                     new expression1(getLeftIToken(), getRightIToken(),
                                     (Iexpression)getRhsSym(1),
@@ -733,7 +739,7 @@ public class LEGParser implements RuleAction, IParser
             // Rule 49:  expression ::= expression * term
             //
             case 49: {
-                //#line 164 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
+                //#line 120 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
                 setResult(
                     new expression2(getLeftIToken(), getRightIToken(),
                                     (Iexpression)getRhsSym(1),
@@ -746,7 +752,7 @@ public class LEGParser implements RuleAction, IParser
             // Rule 50:  expression ::= expression / term
             //
             case 50: {
-                //#line 165 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
+                //#line 121 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
                 setResult(
                     new expression3(getLeftIToken(), getRightIToken(),
                                     (Iexpression)getRhsSym(1),
@@ -759,7 +765,7 @@ public class LEGParser implements RuleAction, IParser
             // Rule 51:  expression ::= expression > term
             //
             case 51: {
-                //#line 166 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
+                //#line 122 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
                 setResult(
                     new expression4(getLeftIToken(), getRightIToken(),
                                     (Iexpression)getRhsSym(1),
@@ -772,7 +778,7 @@ public class LEGParser implements RuleAction, IParser
             // Rule 52:  expression ::= expression < term
             //
             case 52: {
-                //#line 167 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
+                //#line 123 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
                 setResult(
                     new expression5(getLeftIToken(), getRightIToken(),
                                     (Iexpression)getRhsSym(1),
@@ -785,7 +791,7 @@ public class LEGParser implements RuleAction, IParser
             // Rule 53:  expression ::= expression == term
             //
             case 53: {
-                //#line 168 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
+                //#line 124 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
                 setResult(
                     new expression6(getLeftIToken(), getRightIToken(),
                                     (Iexpression)getRhsSym(1),
@@ -798,7 +804,7 @@ public class LEGParser implements RuleAction, IParser
             // Rule 54:  expression ::= expression != term
             //
             case 54: {
-                //#line 169 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
+                //#line 125 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
                 setResult(
                     new expression7(getLeftIToken(), getRightIToken(),
                                     (Iexpression)getRhsSym(1),
@@ -816,7 +822,7 @@ public class LEGParser implements RuleAction, IParser
             // Rule 56:  expression ::= METAVARIABLE_expression
             //
             case 56: {
-                //#line 171 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
+                //#line 127 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
                 setResult(
                     new expression8(getRhsIToken(1))
                 );
@@ -826,7 +832,7 @@ public class LEGParser implements RuleAction, IParser
             // Rule 57:  term ::= NUMBER
             //
             case 57: {
-                //#line 173 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
+                //#line 129 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
                 setResult(
                     new term0(getRhsIToken(1))
                 );
@@ -836,7 +842,7 @@ public class LEGParser implements RuleAction, IParser
             // Rule 58:  term ::= DoubleLiteral
             //
             case 58: {
-                //#line 174 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
+                //#line 130 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
                 setResult(
                     new term1(getRhsIToken(1))
                 );
@@ -846,7 +852,7 @@ public class LEGParser implements RuleAction, IParser
             // Rule 59:  term ::= true
             //
             case 59: {
-                //#line 175 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
+                //#line 131 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
                 setResult(
                     new term2(getRhsIToken(1))
                 );
@@ -856,7 +862,7 @@ public class LEGParser implements RuleAction, IParser
             // Rule 60:  term ::= false
             //
             case 60: {
-                //#line 176 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
+                //#line 132 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
                 setResult(
                     new term3(getRhsIToken(1))
                 );
@@ -876,7 +882,7 @@ public class LEGParser implements RuleAction, IParser
             // Rule 63:  term ::= METAVARIABLE_term
             //
             case 63: {
-                //#line 179 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
+                //#line 135 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
                 setResult(
                     new term4(getRhsIToken(1))
                 );
@@ -886,7 +892,7 @@ public class LEGParser implements RuleAction, IParser
             // Rule 64:  functionCall ::= identifier ( expressions )
             //
             case 64: {
-                //#line 181 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
+                //#line 137 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
                 setResult(
                     new functionCall(getLeftIToken(), getRightIToken(),
                                      (Iidentifier)getRhsSym(1),
@@ -900,7 +906,7 @@ public class LEGParser implements RuleAction, IParser
             // Rule 65:  functionStmt ::= functionCall ;
             //
             case 65: {
-                //#line 183 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
+                //#line 139 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
                 setResult(
                     new functionStmt(getLeftIToken(), getRightIToken(),
                                      (functionCall)getRhsSym(1),
@@ -912,7 +918,7 @@ public class LEGParser implements RuleAction, IParser
             // Rule 66:  expressions ::= $Empty
             //
             case 66: {
-                //#line 185 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
+                //#line 141 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
                 setResult(
                     new expressionList(getLeftIToken(), getRightIToken(), true /* left recursive */)
                 );
@@ -927,7 +933,7 @@ public class LEGParser implements RuleAction, IParser
             // Rule 68:  expressions ::= METAVARIABLE_expressions
             //
             case 68: {
-                //#line 187 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
+                //#line 143 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
                 setResult(
                     new expressionList(getLeftIToken(), getRightIToken(), true /* left recursive */)
                 );
@@ -937,7 +943,7 @@ public class LEGParser implements RuleAction, IParser
             // Rule 69:  expressionList ::= expression
             //
             case 69: {
-                //#line 189 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
+                //#line 145 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
                 setResult(
                     new expressionList((Iexpression)getRhsSym(1), true /* left recursive */)
                 );
@@ -947,7 +953,7 @@ public class LEGParser implements RuleAction, IParser
             // Rule 70:  expressionList ::= expressionList , expression
             //
             case 70: {
-                //#line 190 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
+                //#line 146 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
                 ((expressionList)getRhsSym(1)).add((Iexpression)getRhsSym(3));
                 break;
             } 
@@ -955,7 +961,7 @@ public class LEGParser implements RuleAction, IParser
             // Rule 71:  identifier ::= IDENTIFIER
             //
             case 71: {
-                //#line 192 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
+                //#line 148 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
                 setResult(
                     new identifier0(LEGParser.this, getRhsIToken(1))
                 );
@@ -965,7 +971,7 @@ public class LEGParser implements RuleAction, IParser
             // Rule 72:  identifier ::= METAVARIABLE_identifier
             //
             case 72: {
-                //#line 199 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
+                //#line 155 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
                 setResult(
                     new identifier1(getRhsIToken(1))
                 );
@@ -975,7 +981,7 @@ public class LEGParser implements RuleAction, IParser
             // Rule 73:  BadAssignment ::= identifier = MissingExpression
             //
             case 73: {
-                //#line 202 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
+                //#line 158 "C:/Workspace/org.eclipse.imp.lpg.metatooling/templates/btParserTemplateF.gi"
                 setResult(
                     new BadAssignment(getLeftIToken(), getRightIToken(),
                                       (Iidentifier)getRhsSym(1),
