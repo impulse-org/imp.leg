@@ -161,11 +161,11 @@
 
 %Headers
     /.
-        public class SymbolTable extends Hashtable {
+        public class SymbolTable extends Hashtable<String,IAst> {
             SymbolTable parent;
             SymbolTable(SymbolTable parent) { this.parent = parent; }
             public IAst findDeclaration(String name) {
-                IAst decl = (IAst) get(name);
+                IAst decl = get(name);
                 return (decl != null
                               ? decl
                               : parent != null ? parent.findDeclaration(name) : null);
@@ -173,7 +173,7 @@
             public SymbolTable getParent() { return parent; }
         }
         
-        Stack symbolTableStack = null;
+        Stack<SymbolTable> symbolTableStack = null;
         SymbolTable topLevelSymbolTable = null;
         public SymbolTable getTopLevelSymbolTable() { return topLevelSymbolTable; }
 
@@ -197,7 +197,7 @@
 
         public void resolve($ast_type root) {
             if (root != null) {
-                symbolTableStack = new Stack();
+                symbolTableStack = new Stack<SymbolTable>();
                 topLevelSymbolTable = new SymbolTable(null);
                 symbolTableStack.push(topLevelSymbolTable);
                 root.accept(new SymbolTableVisitor());
@@ -247,7 +247,7 @@
 
             
             public boolean visit(block n) {
-                n.setSymbolTable((SymbolTable) symbolTableStack.push(new SymbolTable((SymbolTable) symbolTableStack.peek())));
+                n.setSymbolTable(symbolTableStack.push(new SymbolTable(symbolTableStack.peek())));
                 return true;
             }
 
@@ -256,7 +256,7 @@
             public boolean visit(functionDeclaration0 n) {
                 functionHeader fh = n.getfunctionHeader();
                 IToken id = fh.getidentifier().getLeftIToken();
-                SymbolTable symbol_table = (SymbolTable) symbolTableStack.peek();
+                SymbolTable symbol_table = symbolTableStack.peek();
                 if (symbol_table.get(id.toString()) == null)
                	     // SMS 11 Jun 2007; pursuant to fixing bug #190
                      //symbol_table.put(id.toString(), fh);
@@ -266,7 +266,7 @@
                 //
                 // Add a symbol table for the parameters
                 //
-                n.setSymbolTable((SymbolTable) symbolTableStack.push(new SymbolTable((SymbolTable) symbolTableStack.peek())));
+                n.setSymbolTable(symbolTableStack.push(new SymbolTable(symbolTableStack.peek())));
 
                 return true;
             }
@@ -275,7 +275,7 @@
 
             public boolean visit(declaration0 n) {
                 IToken id = n.getidentifier().getLeftIToken();
-                SymbolTable symbol_table = (SymbolTable) symbolTableStack.peek();
+                SymbolTable symbol_table = symbolTableStack.peek();
                 if (symbol_table.get(id.toString()) == null)
                      symbol_table.put(id.toString(), n);
                 else emitError(id, "Illegal redeclaration of " + id.toString());
@@ -284,9 +284,9 @@
 
             public boolean visit(identifier0 n) {
                 IToken id = n.getIDENTIFIER();
-                IAst decl = ((SymbolTable) symbolTableStack.peek()).findDeclaration(id.toString());
+                IAst decl = symbolTableStack.peek().findDeclaration(id.toString());
                 if (decl == null)
-                     emitError(id, "Undeclared variable " + id.toString());
+                     emitError(id, "Undeclared identifier " + id.toString());
                 else n.setDeclaration(decl);
                 return true;
             }
