@@ -1,16 +1,17 @@
 package org.eclipse.imp.leg.parser;
 
-import lpg.runtime.IMessageHandler;
-
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.imp.language.ILanguageSyntaxProperties;
 import org.eclipse.imp.leg.parser.Ast.ASTNode;
 import org.eclipse.imp.leg.parser.Ast.functionDeclarationList;
 import org.eclipse.imp.model.ISourceProject;
-import org.eclipse.imp.parser.IASTNodeLocator;
 import org.eclipse.imp.parser.ILexer;
+import org.eclipse.imp.parser.IMessageHandler;
 import org.eclipse.imp.parser.IParseController;
 import org.eclipse.imp.parser.IParser;
+import org.eclipse.imp.parser.ISourcePositionLocator;
+import org.eclipse.imp.parser.MessageHandlerAdapter;
 import org.eclipse.imp.parser.SimpleLPGParseController;
 
 /**
@@ -19,15 +20,12 @@ import org.eclipse.imp.parser.SimpleLPGParseController;
  * @since May 10, 2007 Conversion IProject -> ISourceProject
  * @since May 31, 2007 Adapted to extend SimpleLPGParseController
  */
-public class LEGParseController extends SimpleLPGParseController implements
-		IParseController {
+public class LEGParseController extends SimpleLPGParseController implements IParseController {
 	private LEGParser parser;
 
 	private LEGLexer lexer;
 
-	private char keywords[][];
-
-	private boolean isKeyword[];
+        public LEGParseController() { }
 
 	/**
 	 * @param filePath
@@ -52,14 +50,15 @@ public class LEGParseController extends SimpleLPGParseController implements
 	}
 	
 
-	public IASTNodeLocator getNodeLocator() {
+	public ISourcePositionLocator getNodeLocator() {
 		return new LEGASTNodeLocator();
-	} // return new AstLocator(); }
-
-	public LEGParseController() {
 	}
 
-	/**
+        public ILanguageSyntaxProperties getSyntaxProperties() {
+            return null;
+        }
+
+        /**
 	 * setFilePath() should be called before calling this method.
 	 */
 	public Object parse(String contents, boolean scanOnly,
@@ -76,7 +75,7 @@ public class LEGParseController extends SimpleLPGParseController implements
 			parser = new LEGParser(lexer.getLexStream());
 		}
 		parser.reset(lexer.getLexStream());
-		parser.getParseStream().setMessageHandler(handler);
+		parser.getParseStream().setMessageHandler(new MessageHandlerAdapter(handler));
 
 		lexer.lexer(my_monitor, parser.getParseStream()); // Lex the stream to
 															// produce the token
@@ -85,16 +84,15 @@ public class LEGParseController extends SimpleLPGParseController implements
 			return fCurrentAst; // TODO fCurrentAst might (probably will) be
 								// inconsistent wrt the lex stream now
 
-		fCurrentAst = (ASTNode) parser.parser(my_monitor, 0);
+		fCurrentAst = parser.parser(my_monitor, 0);
 
-//		if (fCurrentAst instanceof functionDeclarationList) {
-//			parser.resolve((ASTNode) fCurrentAst);
-//		}
+		if (fCurrentAst instanceof functionDeclarationList) {
+			parser.resolve((ASTNode) fCurrentAst);
+		}
 
 		cacheKeywordsOnce();
 
 		Object result = fCurrentAst;
 		return result;
 	}
-
 }

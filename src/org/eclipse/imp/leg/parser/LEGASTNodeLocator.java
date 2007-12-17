@@ -1,16 +1,19 @@
 package org.eclipse.imp.leg.parser;
 
+import lpg.runtime.IAst;
+import lpg.runtime.IToken;
+
 import org.eclipse.imp.leg.parser.Ast.ASTNode;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 
-import org.eclipse.imp.parser.IASTNodeLocator;
+import org.eclipse.imp.parser.ISourcePositionLocator;
 
 import org.eclipse.imp.leg.parser.Ast.AbstractVisitor;
 
-public class LEGASTNodeLocator implements IASTNodeLocator {
-	private final ASTNode[] fNode = new ASTNode[1];
+public class LEGASTNodeLocator implements ISourcePositionLocator {
+	private final IAst[] fNode = new IAst[1];
 
 	private int fStartOffset;
 
@@ -24,7 +27,7 @@ public class LEGASTNodeLocator implements IASTNodeLocator {
 			// System.out.println("NodeVisitor.unimplementedVisitor:  Unimplemented");
 		}
 
-		public boolean preVisit(ASTNode element) {
+		public boolean preVisit(IAst element) {
 			int nodeStartOffset = element.getLeftIToken().getStartOffset();
 			int nodeEndOffset = element.getRightIToken().getEndOffset();
 			//System.out.println("LEGNodeLocator.NodeVisitor.preVisit(ASTNode):  Examining " + element.getClass().getName() +
@@ -63,19 +66,30 @@ public class LEGASTNodeLocator implements IASTNodeLocator {
 		return fNode[0];
 	}
 
-	public int getStartOffset(Object node) {
-		ASTNode n = (ASTNode) node;
-		return n.getLeftIToken().getStartOffset();
+	public int getStartOffset(Object entity) {
+                if (entity instanceof IAst) {
+                    IAst n= (IAst) entity;
+                    return n.getLeftIToken().getStartOffset();
+                } else if (entity instanceof IToken) {
+                    IToken t= (IToken) entity;
+                    return t.getStartOffset();
+                }
+                return 0;
 	}
 
-	public int getEndOffset(Object node) {
-		ASTNode n = (ASTNode) node;
-		return n.getRightIToken().getEndOffset();
+	public int getEndOffset(Object entity) {
+                if (entity instanceof IAst) {
+                    IAst n= (IAst) entity;
+                    return n.getLeftIToken().getEndOffset();
+                } else if (entity instanceof IToken) {
+                    IToken t= (IToken) entity;
+                    return t.getEndOffset();
+                }
+                return 0;
 	}
 
-	public int getLength(Object node) {
-		ASTNode n = (ASTNode) node;
-		return getEndOffset(n) - getStartOffset(n);
+	public int getLength(Object entity) {
+		return getEndOffset(entity) - getStartOffset(entity);
 	}
 
 	public IPath getPath(Object node) {
