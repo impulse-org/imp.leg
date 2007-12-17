@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.0"?>
 <plugin>
- <extension
+
+   <extension
          point="org.eclipse.imp.runtime.formatter">
       <formatter
             class="org.eclipse.imp.formatting.SourceFormatter"
@@ -11,10 +12,10 @@
    <extension
          point="org.eclipse.imp.formatting.formattingSpecification">
       <formattingSpecification
-            astAdapter="org.eclipse.imp.leg.parser.LEGASTAdapter"
+            parseController="org.eclipse.imp.leg.parser.LEGParseController"
             file="src/org/eclipse/imp/leg/editor/LEG.fsp"
             language="LEG"
-            parseController="org.eclipse.imp.leg.parser.LEGParseController">
+            astAdapter="org.eclipse.imp.leg.parser.LEGASTAdapter">
       </formattingSpecification>
    </extension>
    <extension
@@ -91,6 +92,26 @@
             language="LEG">
       </tokenColorer>
    </extension>
-  
+   <extension
+         point="org.eclipse.imp.runtime.outliner">
+      <outliner
+            class="org.eclipse.imp.leg.views.LEGOutliner"
+            language="LEG">
+      </outliner>
+   </extension>
+   <extension
+         point="org.eclipse.imp.runtime.foldingUpdater">
+      <foldingUpdater
+            class="org.eclipse.imp.leg.foldingUpdater.LEGFoldingUpdater"
+            language="LEG">
+      </foldingUpdater>
+   </extension>
+   <extension
+         point="org.eclipse.imp.runtime.contentProposer">
+      <proposer
+            class="org.eclipse.imp.leg.contentProposer.LEGContentProposer"
+            language="LEG">
+      </proposer>
+   </extension>
 
 </plugin>
