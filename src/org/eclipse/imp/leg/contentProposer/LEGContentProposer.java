@@ -12,6 +12,7 @@ import org.eclipse.jface.text.ITextViewer;
 import org.eclipse.imp.services.IContentProposer;
 import org.eclipse.imp.editor.SourceProposal;
 import org.eclipse.imp.parser.IParseController;
+import org.eclipse.imp.parser.SimpleLPGParseController;
 
 public class LEGContentProposer implements IContentProposer {
     private Map<String,IAst> getVisibleVariables(LEGParser parser, ASTNode n) {
@@ -63,7 +64,7 @@ public class LEGContentProposer implements IContentProposer {
     }
 
     private IToken getToken(IParseController controller, int offset) {
-        PrsStream stream= controller.getParser().getParseStream();
+        PrsStream stream= ((SimpleLPGParseController) controller).getParser().getParseStream();
         int index= stream.getTokenIndexAtCharacter(offset), token_index= (index < 0 ? -(index - 1) : index), previous_index= stream.getPrevious(token_index);
         return stream
                 .getIToken(((stream.getKind(previous_index) == LEGLexer.TK_IDENTIFIER || ((LEGParseController) controller).isKeyword(stream.getKind(previous_index))) && offset == stream
@@ -104,7 +105,7 @@ public class LEGContentProposer implements IContentProposer {
             ASTNode node= (ASTNode) locator.findNode(controller.getCurrentAst(), token.getStartOffset(), token.getEndOffset());
             if (node != null
                     && (node.getParent() instanceof Iexpression || node.getParent() instanceof assignmentStmt || node.getParent() instanceof BadAssignment)) {
-                Map<String,IAst> symbols= getVisibleVariables((LEGParser) controller.getParser(), node);
+                Map<String,IAst> symbols= getVisibleVariables((LEGParser) ((SimpleLPGParseController) controller).getParser(), node);
                 List<IAst> vars= filterSymbols(symbols, prefix);
                 for(int i= 0; i < vars.size(); i++) {
                     IAst decl= vars.get(i);
