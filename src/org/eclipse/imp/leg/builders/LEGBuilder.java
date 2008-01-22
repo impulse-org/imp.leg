@@ -5,20 +5,18 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
-
+import org.eclipse.imp.builder.BuilderBase;
 import org.eclipse.imp.builder.BuilderUtils;
 import org.eclipse.imp.builder.MarkerCreator;
-import org.eclipse.imp.builder.BuilderBase;
 import org.eclipse.imp.language.Language;
 import org.eclipse.imp.language.LanguageRegistry;
+import org.eclipse.imp.leg.Activator;
+import org.eclipse.imp.leg.parser.LEGParseController;
 import org.eclipse.imp.model.ISourceProject;
 import org.eclipse.imp.model.ModelFactory;
 import org.eclipse.imp.model.ModelFactory.ModelException;
 import org.eclipse.imp.parser.IParseController;
 import org.eclipse.imp.runtime.PluginBase;
-
-import org.eclipse.imp.leg.Activator;
-import org.eclipse.imp.leg.parser.LEGParseController;
 
 /**
  * @author
@@ -45,8 +43,6 @@ public class LEGBuilder extends BuilderBase {
 
 	public static final Language LANGUAGE = LanguageRegistry
 			.findLanguage(LANGUAGE_NAME);
-
-	public static final String[] EXTENSIONS = LANGUAGE.getFilenameExtensions();
 
 	protected PluginBase getPlugin() {
 		//return LEGPlugin.getInstance();
@@ -77,11 +73,7 @@ public class LEGBuilder extends BuilderBase {
 		if (pathString.indexOf("/bin/") != -1)
 			return false;
 
-		for (int i = 0; i < EXTENSIONS.length; i++) {
-			if (EXTENSIONS[i].equals(path.getFileExtension()))
-				return true;
-		}
-		return false;
+		return LANGUAGE.hasExtension(path.getFileExtension());
 	}
 
 	/**
