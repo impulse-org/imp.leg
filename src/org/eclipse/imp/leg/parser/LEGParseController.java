@@ -2,7 +2,6 @@ package org.eclipse.imp.leg.parser;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.imp.language.ILanguageSyntaxProperties;
 import org.eclipse.imp.leg.parser.Ast.ASTNode;
 import org.eclipse.imp.leg.parser.Ast.functionDeclarationList;
 import org.eclipse.imp.model.ISourceProject;
@@ -13,6 +12,7 @@ import org.eclipse.imp.parser.IParser;
 import org.eclipse.imp.parser.ISourcePositionLocator;
 import org.eclipse.imp.parser.MessageHandlerAdapter;
 import org.eclipse.imp.parser.SimpleLPGParseController;
+import org.eclipse.imp.services.ILanguageSyntaxProperties;
 
 /**
  * @author Stan Sutton (suttons@us.ibm.com) (for the following modifications)
