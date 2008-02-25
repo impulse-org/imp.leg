@@ -4,8 +4,6 @@ import lpg.runtime.IAst;
 import lpg.runtime.IToken;
 
 import org.eclipse.imp.language.ILanguageService;
-import org.eclipse.imp.leg.parser.Ast.ASTNode;
-import org.eclipse.imp.leg.parser.Ast.ASTNodeToken;
 import org.eclipse.imp.leg.parser.Ast.AbstractASTNodeList;
 import org.eclipse.imp.xform.pattern.parser.ASTAdapterBase;
 
