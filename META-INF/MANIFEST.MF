@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Leg Plug-in
+Bundle-Name: Leg Plug-in (Incubation)
 Bundle-SymbolicName: org.eclipse.imp.leg;singleton:=true
 Bundle-Version: 1.0.0
 Bundle-Activator: org.eclipse.imp.leg.Activator
