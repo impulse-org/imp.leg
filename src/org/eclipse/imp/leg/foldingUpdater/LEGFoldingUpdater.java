@@ -7,6 +7,8 @@ import java.util.List;
 import org.eclipse.imp.services.base.FolderBase;
 
 import org.eclipse.imp.leg.parser.Ast.*;
+import org.eclipse.jface.text.Position;
+import org.eclipse.jface.text.source.Annotation;
 
 import lpg.runtime.*;
 
@@ -47,9 +49,9 @@ public class LEGFoldingUpdater extends FolderBase {
 
     private void makeAdjunctAnnotations(ASTNode theAST) {
         ILexStream lexStream= prsStream.getLexStream();
-        ArrayList adjuncts= (ArrayList) prsStream.getAdjuncts();
+        ArrayList<Adjunct> adjuncts= prsStream.getAdjuncts();
         for(int i= 0; i < adjuncts.size();) {
-            Adjunct adjunct= (Adjunct) adjuncts.get(i);
+            Adjunct adjunct= adjuncts.get(i);
 
             IToken previous_token= prsStream.getIToken(adjunct.getTokenIndex()), next_token= prsStream.getIToken(prsStream.getNext(previous_token
                     .getTokenIndex())), comments[]= previous_token.getFollowingAdjuncts();
@@ -101,7 +103,7 @@ public class LEGFoldingUpdater extends FolderBase {
 
     // When instantiated will provide a concrete implementation of an abstract method
     // defined in FolderBase
-    public void sendVisitorToAST(HashMap newAnnotations, List annotations, Object ast) {
+    public void sendVisitorToAST(HashMap<Annotation,Position> newAnnotations, List<Annotation> annotations, Object ast) {
         ASTNode theAST= (ASTNode) ast;
         prsStream= theAST.getLeftIToken().getPrsStream();
         AbstractVisitor abstractVisitor= new FoldingVisitor();
