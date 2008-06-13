@@ -2,6 +2,7 @@ package org.eclipse.imp.leg.parser;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.imp.leg.Activator;
 import org.eclipse.imp.leg.parser.Ast.ASTNode;
 import org.eclipse.imp.leg.parser.Ast.functionDeclarationList;
 import org.eclipse.imp.model.ISourceProject;
@@ -25,7 +26,9 @@ public class LEGParseController extends SimpleLPGParseController implements IPar
 
 	private LEGLexer lexer;
 
-        public LEGParseController() { }
+        public LEGParseController() {
+            super(Activator.kLanguageName);
+        }
 
 	/**
 	 * @param filePath
