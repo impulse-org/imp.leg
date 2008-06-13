@@ -113,5 +113,12 @@
             language="LEG">
       </proposer>
    </extension>
+   <extension
+         point="org.eclipse.imp.runtime.editorActionContributions">
+      <editorActionContributor
+            class="org.eclipse.imp.leg.actions.EditorActions"
+            language="leg">
+      </editorActionContributor>
+   </extension>
 
 </plugin>
