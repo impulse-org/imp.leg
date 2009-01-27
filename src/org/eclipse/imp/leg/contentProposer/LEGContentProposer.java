@@ -67,12 +67,12 @@ public class LEGContentProposer implements IContentProposer {
         PrsStream stream= ((SimpleLPGParseController) controller).getParser().getParseStream();
         int index= stream.getTokenIndexAtCharacter(offset), token_index= (index < 0 ? -(index - 1) : index), previous_index= stream.getPrevious(token_index);
         return stream
-                .getIToken(((stream.getKind(previous_index) == LEGLexer.TK_IDENTIFIER || ((LEGParseController) controller).isKeyword(stream.getKind(previous_index))) && offset == stream
+                .getIToken(((stream.getKind(previous_index) == LEGParsersym.TK_IDENTIFIER || ((LEGParseController) controller).isKeyword(stream.getKind(previous_index))) && offset == stream
                         .getEndOffset(previous_index) + 1) ? previous_index : token_index);
     }
 
     private String getPrefix(IToken token, int offset) {
-        if (token.getKind() == LEGLexer.TK_IDENTIFIER)
+        if (token.getKind() == LEGParsersym.TK_IDENTIFIER)
             if (offset >= token.getStartOffset() && offset <= token.getEndOffset() + 1)
                 return token.toString().substring(0, offset - token.getStartOffset());
         return "";
