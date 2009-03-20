@@ -1,6 +1,9 @@
 %options package=org.eclipse.imp.leg.parser
 %options template=LexerTemplateF.gi
 %options filter=LEGKWLexer.gi
+--
+-- This is just a sample lexer and not a real lexer for LEG
+--
 
 %Globals
     /.import java.util.*;
@@ -18,6 +21,14 @@
 %End
 
 %Export
+    --
+    -- List all the token types the lexer will directly process
+    -- and export to the parser. If a keyword lexer is used as
+    -- a filter for this lexer, it may export a set of keywords
+    -- that will also be passed along to the parser.
+    -- 
+    -- For example:
+    --
         SINGLE_LINE_COMMENT
         IDENTIFIER 
         NUMBER
@@ -37,18 +48,6 @@
         RIGHTPAREN
         LEFTBRACE
         RIGHTBRACE
-        METAVARIABLE_functionDeclaration
-        METAVARIABLE_expression
-        METAVARIABLE_expressions
-        METAVARIABLE_statement
-        METAVARIABLE_statements
-        METAVARIABLE_parameters
-        METAVARIABLE_Type
-        METAVARIABLE_identifier
-	METAVARIABLE_parameterList
-	METAVARIABLE_declaration
-	METAVARIABLE_functionDeclarations
-	METAVARIABLE_term
 %End
 
 %Terminals
@@ -108,208 +107,27 @@
     Token
 %End
 
-
 %Rules
-    Token ::= '$' 'f' 'u' 'n' 'c' number
-         /.
-      $BeginJava
-         makeToken($_METAVARIABLE_functionDeclaration);
-      $EndJava
-     ./
-        
-    Token ::= '$' 'f' 'u' 'n' 'c' 's' number
-         /.
-      $BeginJava
-         makeToken($_METAVARIABLE_functionDeclarations);
-      $EndJava
-     ./
-     
-    Token ::= '$' 'e' 'x' 'p' 'r' number
-       /.
-      $BeginJava
-         makeToken($_METAVARIABLE_expression);
-      $EndJava
-     ./
-     
-      Token ::= '$' 's' 't' 'a' 't' number
-       /.
-      $BeginJava
-         makeToken($_METAVARIABLE_statement);
-      $EndJava
-     ./
-     
-       Token ::= '$' 's' 't' 'a' 't' 's' number
-       /.
-      $BeginJava
-         makeToken($_METAVARIABLE_statements);
-      $EndJava
-     ./
-     
-     Token ::= '$' 'e' 'x' 'p' 'r' 's' number
-       /.
-      $BeginJava
-         makeToken($_METAVARIABLE_expressions);
-      $EndJava
-     ./
-     
-       Token ::= '$' 't' 'e' 'r' 'm'  number
-       /.
-      $BeginJava
-         makeToken($_METAVARIABLE_term);
-      $EndJava
-     ./
-     
-     Token ::= '$' 'i' 'd' number
-       /.
-      $BeginJava
-         makeToken($_METAVARIABLE_identifier);
-      $EndJava
-     ./
-     
-       Token ::= '$' 't' 'y' 'p' 'e' number
-       /.
-      $BeginJava
-         makeToken($_METAVARIABLE_Type);
-      $EndJava
-     ./
-     
-        Token ::= '$' 'p' 'a' 'r' 'a' 'm' 's' number
-       /.
-      $BeginJava
-         makeToken($_METAVARIABLE_parameters);
-      $EndJava
-     ./
-     
-          Token ::= '$' 'p' 'a' 'r' 'a' 'm' 'l' 'i' 's' 't'  number
-       /.
-      $BeginJava
-         makeToken($_METAVARIABLE_parameterList);
-      $EndJava
-     ./
-     
-       
-          Token ::= '$' 'd' 'e' 'c' 'l' number
-       /.
-      $BeginJava
-         makeToken($_METAVARIABLE_declaration);
-      $EndJava
-     ./
-     
-     
-    Token ::= identifier
-        /.$BeginJava
-                    checkForKeyWord();
-          $EndJava
-        ./
-    Token ::= number
-        /.$BeginJava
-                    makeToken($_NUMBER);
-          $EndJava
-        ./
-    Token ::= DoubleLiteral
-        /.$BeginJava
-                    makeToken($_DoubleLiteral);
-          $EndJava
-        ./
-    Token ::= white
-        /.$BeginJava
-                    skipToken();
-          $EndJava
-        ./
-    Token ::= slc
-        /.$BeginJava
-                    makeComment($_SINGLE_LINE_COMMENT);
-          $EndJava
-        ./
-    Token ::= ';'
-        /.$BeginJava
-                    makeToken($_SEMICOLON);
-          $EndJava
-        ./
-
-    Token ::= ','
-        /.$BeginJava
-                    makeToken($_COMMA);
-          $EndJava
-        ./
-
-    Token ::= '+'
-        /.$BeginJava
-                    makeToken($_PLUS);
-          $EndJava
-        ./
-
-    Token ::= '-'
-        /.$BeginJava
-                    makeToken($_MINUS);
-          $EndJava
-        ./
-
-    Token ::= '='
-        /.$BeginJava
-                    makeToken($_ASSIGN);
-          $EndJava
-        ./
-
-    Token ::= '('
-        /.$BeginJava
-                    makeToken($_LEFTPAREN);
-          $EndJava
-        ./
-
-    Token ::= ')'
-        /.$BeginJava
-                    makeToken($_RIGHTPAREN);
-          $EndJava
-        ./
-
-    Token ::= '{'
-        /.$BeginJava
-                    makeToken($_LEFTBRACE);
-          $EndJava
-        ./
-
-    Token ::= '}'
-        /.$BeginJava
-                    makeToken($_RIGHTBRACE);
-          $EndJava
-        ./
-
-    Token ::= '*'
-        /.$BeginJava
-                    makeToken($_TIMES);
-          $EndJava
-        ./
-
-    Token ::= '/'
-        /.$BeginJava
-                    makeToken($_DIVIDE);
-          $EndJava
-        ./
-
-    Token ::= '>'
-        /.$BeginJava
-                    makeToken($_GREATER);
-          $EndJava
-        ./
-
-    Token ::= '<'
-        /.$BeginJava
-                    makeToken($_LESS);
-          $EndJava
-        ./
-
-    Token ::= '=' '='
-        /.$BeginJava
-                    makeToken($_EQUAL);
-          $EndJava
-        ./
-
-    Token ::= '!' '='
-        /.$BeginJava
-                    makeToken($_NOTEQUAL);
-          $EndJava
-        ./
+    Token ::= identifier    /.    checkForKeyWord();./
+            | number        /.    makeToken($_NUMBER);./
+            | DoubleLiteral /.    makeToken($_DoubleLiteral);./
+            | white         /.    skipToken();./
+            | slc           /.    makeComment($_SINGLE_LINE_COMMENT);./
+            | ';'           /.    makeToken($_SEMICOLON);./
+            | ','           /.    makeToken($_COMMA);./
+            | '+'           /.    makeToken($_PLUS);./
+            | '-'           /.    makeToken($_MINUS);./
+            | '='           /.    makeToken($_ASSIGN);./
+            | '('           /.    makeToken($_LEFTPAREN);./
+            | ')'           /.    makeToken($_RIGHTPAREN);./
+            | '{'           /.    makeToken($_LEFTBRACE);./
+            | '}'           /.    makeToken($_RIGHTBRACE);./
+            | '*'           /.    makeToken($_TIMES);./
+            | '/'           /.    makeToken($_DIVIDE);./
+            | '>'           /.    makeToken($_GREATER);./
+            | '<'           /.    makeToken($_LESS);./
+            | '=' '='       /.    makeToken($_EQUAL);./
+            | '!' '='       /.    makeToken($_NOTEQUAL);./
 
     identifier -> letter
                 | identifier letter

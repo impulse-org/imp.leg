@@ -1,0 +1,6 @@
+PagePackage=org.eclipse.imp.leg.preferences
+PageClassNameBase=LEGPreferences
+PageName=LEG
+PageId=org.eclipse.imp.LEG.preferences
+PageMenuItem=TOP
+AlternativeMessage=Message omitted.

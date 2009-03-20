@@ -36,20 +36,6 @@
       </parserWrapper>
    </extension>
    <extension
-         id="leg.imp.builder"
-         name="LEG builder"
-         point="org.eclipse.core.resources.builders">
-      <builder>
-         <run
-               class="org.eclipse.imp.leg.builders.LEGBuilder">
-            <parameter
-                  name="foo"
-                  value="bar">
-            </parameter>
-         </run>
-      </builder>
-   </extension>
-   <extension
          id="imp.nature"
          name="LEG Nature"
          point="org.eclipse.core.resources.natures">
@@ -122,6 +108,95 @@
             class="org.eclipse.imp.leg.actions.EditorActions"
             language="leg">
       </editorActionContributor>
+   </extension>
+   <extension
+         point="org.eclipse.imp.runtime.modelTreeBuilder">
+      <treeBuilder
+            class="org.eclipse.imp.leg.treeModelBuilder.LEGTreeModelBuilder"
+            language="LEG">
+      </treeBuilder>
+   </extension>
+   <extension
+         point="org.eclipse.imp.runtime.labelProvider">
+      <labelProvider
+            class="org.eclipse.imp.leg.treeModelBuilder.LEGLabelProvider"
+            language="LEG">
+      </labelProvider>
+   </extension>
+   <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer
+            class="org.eclipse.imp.leg.preferences.LEGPreferencesInitializer">
+      </initializer>
+   </extension>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            name="LEG"
+            class="org.eclipse.imp.leg.preferences.LEGPreferencePage"
+            id="org.eclipse.imp.LEG.preferences.LEG">
+      </page>
+   </extension>
+   <extension
+         id="lEG.imp.builder"
+         name="LEG builder"
+         point="org.eclipse.core.resources.builders">
+      <builder>
+         <run
+               class="org.eclipse.imp.leg.builders.LEGBuilder">
+            <parameter
+                  name="foo"
+                  value="bar">
+            </parameter>
+         </run>
+      </builder>
+   </extension>
+   <extension
+         id="imp.nature"
+         name="LEG Nature"
+         point="org.eclipse.core.resources.natures">
+      <builder
+            id="org.eclipse.imp.leg.lEG.imp.builder">
+      </builder>
+      <runtime>
+         <run
+               class="LEG.imp.builders.LEGNature">
+         </run>
+      </runtime>
+   </extension>
+   <extension
+         id="lEG.imp.builder.problem"
+         name="LEG Error"
+         point="org.eclipse.core.resources.markers">
+      <super
+            type="org.eclipse.core.resources.problemmarker">
+      </super>
+      <persistent
+            value="true">
+      </persistent>
+   </extension>
+   <extension
+         point="org.eclipse.imp.runtime.markOccurrences">
+      <occurrenceMarker
+            class="org.eclipse.imp.leg.occurrenceMarker.LEGOccurrenceMarker"
+            language="LEG">
+      </occurrenceMarker>
+   </extension>
+   <extension
+         point="org.eclipse.imp.runtime.referenceResolvers">
+      <referenceResolver
+            class="org.eclipse.imp.leg.referenceResolvers.LEGReferenceResolver"
+            language="LEG">
+      </referenceResolver>
+   </extension>
+   <extension
+         id="org.eclipse.imp.leg.parserWrapper"
+         name="LEG Parser Wrapper"
+         point="org.eclipse.imp.runtime.parser">
+      <parserWrapper
+            class="org.eclipse.imp.leg.parser.LEGParseController"
+            language="LEG">
+      </parserWrapper>
    </extension>
 
 </plugin>
