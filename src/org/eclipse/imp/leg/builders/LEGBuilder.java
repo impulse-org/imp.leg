@@ -111,7 +111,7 @@ public class LEGBuilder extends BuilderBase {
         String fromPath= file.getFullPath().toString();
 
         getPlugin().writeInfoMsg(
-                "Collecting dependencies from ${LANG_NAME} file: "
+                "Collecting dependencies from LEG file: "
                         + file.getName());
 
         // TODO: implement dependency collector

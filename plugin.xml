@@ -36,45 +36,6 @@
       </parserWrapper>
    </extension>
    <extension
-         id="imp.nature"
-         name="LEG Nature"
-         point="org.eclipse.core.resources.natures">
-      <builder
-            id="org.eclipse.imp.leg.leg.imp.builder">
-      </builder>
-      <runtime>
-         <run
-               class="LEG.imp.builders.LEGNature">
-         </run>
-      </runtime>
-   </extension>
-   <extension
-         id="leg.imp.builder.problem"
-         name="LEG Error"
-         point="org.eclipse.core.resources.markers">
-      <super
-            type="org.eclipse.core.resources.problemmarker">
-      </super>
-      <persistent
-            value="true">
-      </persistent>
-   </extension>
-   <extension
-         point="org.eclipse.ui.popupMenus">
-      <objectContribution
-            objectClass="org.eclipse.jdt.core.IJavaProject"
-            adaptable="false"
-            nameFilter="*"
-            id="LEG.imp.projectContextMenu">
-         <action
-               label="Enable LEG Builder"
-               tooltip="Enable the LEG builder for this project"
-               class="org.eclipse.imp.leg.actions.EnableNature"
-               id="LEG.imp.actions.enableNatureAction">
-         </action>
-      </objectContribution>
-   </extension>
-   <extension
          point="org.eclipse.imp.runtime.tokenColorer">
       <tokenColorer
             class="org.eclipse.imp.leg.editor.TokenColorer"
@@ -126,7 +87,7 @@
    <extension
          point="org.eclipse.core.runtime.preferences">
       <initializer
-            class="org.eclipse.imp.leg.preferences.LEGPreferencesInitializer">
+            class="org.eclipse.imp.leg.preferences.LEGInitializer">
       </initializer>
    </extension>
    <extension
@@ -160,7 +121,7 @@
       </builder>
       <runtime>
          <run
-               class="LEG.imp.builders.LEGNature">
+               class="org.eclipse.imp.leg.builders.LEGNature">
          </run>
       </runtime>
    </extension>
@@ -197,6 +158,21 @@
             class="org.eclipse.imp.leg.parser.LEGParseController"
             language="LEG">
       </parserWrapper>
+   </extension>
+   <extension
+         point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            objectClass="org.eclipse.jdt.core.IJavaProject"
+            adaptable="false"
+            nameFilter="*"
+            id="LEG.imp.projectContextMenu">
+         <action
+               label="Enable LEG Builder"
+               tooltip="Enable the LEG builder for this project"
+               class="org.eclipse.imp.leg.actions.EnableLEGNature"
+               id="LEG.imp.actions.enableNatureAction">
+         </action>
+      </objectContribution>
    </extension>
 
 </plugin>
