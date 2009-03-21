@@ -1,16 +1,11 @@
-
-// This LEG function computes the factorial of 
-// a non-negative integer number. It will not
-// terminate on negative numbers.
-
+//** This LEG function computes the factorial of an integer number.
 int factorial(int n) {
-  if (n == 0) {
+  if (n <= 1) {
     return 1;
   }
-  else if (n == 1) {
-    return 1;
-  }
-  else {
-    return n * factorial(n - 1);
-  }
+  return n * factorial(n - 1);
+}
+
+int main() {
+  return factorial(10);
 }
