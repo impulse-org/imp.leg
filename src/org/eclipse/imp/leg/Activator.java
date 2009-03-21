@@ -1,6 +1,10 @@
 package org.eclipse.imp.leg;
 
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.imp.runtime.PluginBase;
+import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jface.resource.ImageRegistry;
+import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 
 /*
@@ -58,29 +62,35 @@ public class Activator extends PluginBase {
     public static final org.eclipse.core.runtime.IPath ICONS_PATH= new org.eclipse.core.runtime.Path(
             "icons/"); //$NON-NLS-1$("icons/"); //$NON-NLS-1$
 
-    protected void initializeImageRegistry(
-            org.eclipse.jface.resource.ImageRegistry reg) {
-        org.eclipse.core.runtime.IPath path= ICONS_PATH
-                .append("leg_default_image.gif");//$NON-NLS-1$
-        org.eclipse.jface.resource.ImageDescriptor imageDescriptor= createImageDescriptor(
-                getInstance().getBundle(), path);
+    protected void initializeImageRegistry(ImageRegistry reg) {
+        Bundle bundle= getBundle();
+        IPath path= ICONS_PATH.append("leg_default_image.gif");//$NON-NLS-1$
+        ImageDescriptor imageDescriptor= createImageDescriptor(bundle, path);
         reg.put(ILEGResources.LEG_DEFAULT_IMAGE, imageDescriptor);
 
         path= ICONS_PATH.append("leg_default_outline_item.gif");//$NON-NLS-1$
-        imageDescriptor= createImageDescriptor(getInstance().getBundle(), path);
+        imageDescriptor= createImageDescriptor(bundle, path);
         reg.put(ILEGResources.LEG_DEFAULT_OUTLINE_ITEM, imageDescriptor);
 
         path= ICONS_PATH.append("leg_file.gif");//$NON-NLS-1$
-        imageDescriptor= createImageDescriptor(getInstance().getBundle(), path);
+        imageDescriptor= createImageDescriptor(bundle, path);
         reg.put(ILEGResources.LEG_FILE, imageDescriptor);
 
         path= ICONS_PATH.append("leg_file_warning.gif");//$NON-NLS-1$
-        imageDescriptor= createImageDescriptor(getInstance().getBundle(), path);
+        imageDescriptor= createImageDescriptor(bundle, path);
         reg.put(ILEGResources.LEG_FILE_WARNING, imageDescriptor);
 
         path= ICONS_PATH.append("leg_file_error.gif");//$NON-NLS-1$
-        imageDescriptor= createImageDescriptor(getInstance().getBundle(), path);
+        imageDescriptor= createImageDescriptor(bundle, path);
         reg.put(ILEGResources.LEG_FILE_ERROR, imageDescriptor);
+
+        path= ICONS_PATH.append("funcDecl.gif");//$NON-NLS-1$
+        imageDescriptor= createImageDescriptor(bundle, path);
+        reg.put(ILEGResources.FUNC_DECL, imageDescriptor);
+
+        path= ICONS_PATH.append("mainDecl.gif");//$NON-NLS-1$
+        imageDescriptor= createImageDescriptor(bundle, path);
+        reg.put(ILEGResources.MAIN_DECL, imageDescriptor);
     }
 
     public static org.eclipse.jface.resource.ImageDescriptor createImageDescriptor(

@@ -174,5 +174,12 @@
          </action>
       </objectContribution>
    </extension>
+   <extension
+         point="org.eclipse.imp.runtime.documentationProvider">
+      <docProvider
+            class="org.eclipse.imp.leg.documentationProvider.LEGDocumentationProvider"
+            language="LEG">
+      </docProvider>
+   </extension>
 
 </plugin>

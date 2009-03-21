@@ -1,11 +1,3 @@
-/*
- * (C) Copyright IBM Corporation 2007
- * 
- * This file is part of the Eclipse IMP.
- */
-/*
- * Created on Jul 7, 2006
- */
 package org.eclipse.imp.leg.treeModelBuilder;
 
 import java.util.HashSet;
@@ -16,7 +8,6 @@ import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.imp.editor.ModelTreeNode;
 import org.eclipse.imp.services.ILabelProvider;
-import org.eclipse.imp.language.ILanguageService;
 import org.eclipse.imp.leg.Activator;
 import org.eclipse.imp.leg.ILEGResources;
 import org.eclipse.imp.utils.MarkerUtils;
@@ -29,16 +20,14 @@ import org.eclipse.imp.leg.parser.Ast.*;
 public class LEGLabelProvider implements ILabelProvider {
     private Set<ILabelProviderListener> fListeners= new HashSet<ILabelProviderListener>();
 
-    private static ImageRegistry sImageRegistry= Activator.getInstance()
-            .getImageRegistry();
+    private static ImageRegistry sImageRegistry= Activator.getInstance().getImageRegistry();
 
-    private static Image DEFAULT_IMAGE= sImageRegistry
-            .get(ILEGResources.LEG_DEFAULT_IMAGE);
+    private static Image DEFAULT_IMAGE= sImageRegistry.get(ILEGResources.LEG_DEFAULT_IMAGE);
     private static Image FILE_IMAGE= sImageRegistry.get(ILEGResources.LEG_FILE);
-    private static Image FILE_WITH_WARNING_IMAGE= sImageRegistry
-            .get(ILEGResources.LEG_FILE_WARNING);
-    private static Image FILE_WITH_ERROR_IMAGE= sImageRegistry
-            .get(ILEGResources.LEG_FILE_ERROR);
+    private static Image FILE_WITH_WARNING_IMAGE= sImageRegistry.get(ILEGResources.LEG_FILE_WARNING);
+    private static Image FILE_WITH_ERROR_IMAGE= sImageRegistry.get(ILEGResources.LEG_FILE_ERROR);
+    private static Image FUNC_DECL_IMAGE= sImageRegistry.get(ILEGResources.FUNC_DECL);
+    private static Image MAIN_DECL_IMAGE= sImageRegistry.get(ILEGResources.MAIN_DECL);
 
     public Image getImage(Object element) {
         if (element instanceof IFile) {
@@ -63,8 +52,13 @@ public class LEGLabelProvider implements ILabelProvider {
     }
 
     public static Image getImageFor(ASTNode n) {
-        // TODO:  return specific images for specific node
-        // types, as images are available and appropriate
+        if (n instanceof functionDeclaration) {
+            functionDeclaration fd= (functionDeclaration) n;
+            if (fd.getfunctionHeader().getidentifier().toString().equals("main"))
+                return MAIN_DECL_IMAGE;
+            else
+                return FUNC_DECL_IMAGE;
+        }
         return DEFAULT_IMAGE;
     }
 
@@ -102,7 +96,17 @@ public class LEGLabelProvider implements ILabelProvider {
         if (n instanceof functionDeclaration) {
             functionHeader hdr= (functionHeader) ((functionDeclaration) n)
                     .getfunctionHeader();
-            return hdr.getidentifier().toString();
+            StringBuilder sb= new StringBuilder();
+            sb.append(hdr.getType());
+            sb.append(" ");
+            sb.append(hdr.getidentifier().toString());
+            sb.append("(");
+            for(int i=0; i < hdr.getparameters().size(); i++) {
+                if (i > 0) sb.append(", ");
+                sb.append(hdr.getparameters().getdeclarationAt(i).getprimitiveType());
+            }
+            sb.append(")");
+            return sb.toString();
         }
         return "<???>";
     }

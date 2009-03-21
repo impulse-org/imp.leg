@@ -14,6 +14,9 @@ public interface ILEGResources {
 
     public static final String LEG_FILE_ERROR= "leg_file_error";
 
+    public static final String FUNC_DECL= "funcDecl";
+
+    public static final String MAIN_DECL= "mainDecl";
     // Definitions for label provider end
 
 }
