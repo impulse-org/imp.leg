@@ -323,7 +323,7 @@ public class LEGCompiler {
         parseController.initialize(file.getProjectRelativePath(),
                 sourceProject, markerCreator);
 
-        parseController.parse(getFileContents(file), false, mon);
+        parseController.parse(getFileContents(file), mon);
 
         ASTNode currentAst= (ASTNode) parseController.getCurrentAst();
 
