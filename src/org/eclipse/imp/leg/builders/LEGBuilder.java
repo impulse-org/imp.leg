@@ -199,7 +199,7 @@ public class LEGBuilder extends BuilderBase {
                     sourceProject, markerCreator);
 
             String contents= BuilderUtils.getFileContents(file);
-            parseController.parse(contents, false, monitor);
+            parseController.parse(contents, monitor);
 
             if (markerCreator instanceof MarkerCreatorWithBatching) {
                 ((MarkerCreatorWithBatching) markerCreator).flush(monitor);
