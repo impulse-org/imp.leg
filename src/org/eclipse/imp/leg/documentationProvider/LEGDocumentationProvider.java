@@ -73,8 +73,7 @@ public class LEGDocumentationProvider implements IDocumentationProvider {
 
     public static String getSubstring(IParseController parseController,
             int start, int end) {
-        return new String(((SimpleLPGParseController) parseController)
-                .getParser().getParseStream().getInputChars(), start, end
-                - start + 1);
+        return new String(((SimpleLPGParseController) parseController).getParser().getIPrsStream().getInputChars(),
+                start, end - start + 1);
     }
 }
