@@ -41,12 +41,14 @@ public class LEGFoldingUpdater extends LPGFolderBase {
 
         // Create annotations for the folding of blocks (for example)
         public boolean visit(block n) {
-            makeAnnotation(n);
+            if (!(n.getParent() instanceof functionDeclaration)) {
+                makeFoldable(n);
+            }
             return true;
         }
         @Override
         public boolean visit(functionDeclaration n) {
-            makeAnnotation(n);
+            makeFoldable(n);
             return true;
         }
     };
@@ -58,6 +60,6 @@ public class LEGFoldingUpdater extends LPGFolderBase {
         prsStream= theAST.getLeftIToken().getIPrsStream();
         AbstractVisitor abstractVisitor= new FoldingVisitor();
         theAST.accept(abstractVisitor);
-        makeAdjunctAnnotations();
+        makeAdjunctsFoldable();
     }
 }
