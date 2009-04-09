@@ -52,7 +52,7 @@ public class TokenColorer extends TokenColorerBase implements LEGParsersym, ITok
 				.getSystemColor(SWT.COLOR_DARK_MAGENTA), null, SWT.BOLD);
 	}
 
-    public IRegion calculateDamageExtent(IRegion seed) {
+    public IRegion calculateDamageExtent(IRegion seed, IParseController ctlr) {
         return seed;
     }
 }
