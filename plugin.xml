@@ -181,5 +181,11 @@
             language="LEG">
       </docProvider>
    </extension>
+   <extension
+         point="org.eclipse.imp.runtime.toggleBreakpointHandler">
+         <toggleBreakpointHandler
+            language="leg"
+            class="org.eclipse.imp.leg.debug.JavaBreakpointHandler"/>
+   </extension>
 
 </plugin>
