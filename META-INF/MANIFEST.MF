@@ -4,7 +4,7 @@ Bundle-Name: Leg Plug-in (Incubation)
 Bundle-SymbolicName: org.eclipse.imp.leg;singleton:=true
 Bundle-Version: 1.0.0
 Bundle-Activator: org.eclipse.imp.leg.Activator
-Bundle-Localization: plugin
+Bundle-ActivationPolicy: lazy
 Require-Bundle: lpg.runtime,
  org.eclipse.core.runtime,
  org.eclipse.core.resources,
@@ -20,4 +20,3 @@ Require-Bundle: lpg.runtime,
  org.eclipse.ui,
  org.eclipse.ui.editors,
  org.eclipse.ui.workbench.texteditor
-Eclipse-LazyStart: true
