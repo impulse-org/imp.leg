@@ -43,13 +43,6 @@
       </tokenColorer>
    </extension>
    <extension
-         point="org.eclipse.imp.runtime.outliner">
-      <outliner
-            class="org.eclipse.imp.leg.views.LEGOutliner"
-            language="LEG">
-      </outliner>
-   </extension>
-   <extension
          point="org.eclipse.imp.runtime.foldingUpdater">
       <foldingUpdater
             class="org.eclipse.imp.leg.foldingUpdater.LEGFoldingUpdater"
