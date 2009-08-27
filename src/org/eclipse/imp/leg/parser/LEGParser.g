@@ -2,9 +2,6 @@
 %options template=dtParserTemplateF.gi
 %options import_terminals=LEGLexer.gi
 %options parent_saved,automatic_ast=toplevel,visitor=preorder,ast_directory=./Ast,ast_type=ASTNode
---
--- This is just a sample grammar and not a real grammar for LEG
---
 
 %Globals
     /.import org.eclipse.imp.parser.IParser;
@@ -12,8 +9,6 @@
     import java.util.Stack;
     ./
 %End
-
-
 
 %Define
     $ast_class /.Object./
