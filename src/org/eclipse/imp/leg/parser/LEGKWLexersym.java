@@ -1,0 +1,72 @@
+package org.eclipse.imp.leg.parser;
+
+public interface LEGKWLexersym {
+    public final static int
+      Char_DollarSign = 18,
+      Char_Percent = 19,
+      Char__ = 20,
+      Char_a = 9,
+      Char_b = 10,
+      Char_c = 21,
+      Char_d = 11,
+      Char_e = 1,
+      Char_f = 12,
+      Char_g = 22,
+      Char_h = 14,
+      Char_i = 4,
+      Char_j = 23,
+      Char_k = 24,
+      Char_l = 2,
+      Char_m = 25,
+      Char_n = 5,
+      Char_o = 3,
+      Char_p = 26,
+      Char_q = 27,
+      Char_r = 6,
+      Char_s = 13,
+      Char_t = 7,
+      Char_u = 8,
+      Char_v = 15,
+      Char_w = 16,
+      Char_x = 28,
+      Char_y = 29,
+      Char_z = 30,
+      Char_EOF = 17;
+
+    public final static String orderedTerminalSymbols[] = {
+                 "",
+                 "e",
+                 "l",
+                 "o",
+                 "i",
+                 "n",
+                 "r",
+                 "t",
+                 "u",
+                 "a",
+                 "b",
+                 "d",
+                 "f",
+                 "s",
+                 "h",
+                 "v",
+                 "w",
+                 "EOF",
+                 "DollarSign",
+                 "Percent",
+                 "_",
+                 "c",
+                 "g",
+                 "j",
+                 "k",
+                 "m",
+                 "p",
+                 "q",
+                 "x",
+                 "y",
+                 "z"
+             };
+
+    public final static int numTokenKinds = orderedTerminalSymbols.length;
+    public final static boolean isValidForParser = true;
+}
