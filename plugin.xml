@@ -84,14 +84,6 @@
       </initializer>
    </extension>
    <extension
-         point="org.eclipse.ui.preferencePages">
-      <page
-            name="LEG"
-            class="org.eclipse.imp.leg.preferences.LEGPreferencePage"
-            id="org.eclipse.imp.LEG.preferences.LEG">
-      </page>
-   </extension>
-   <extension
          id="lEG.imp.builder"
          name="LEG builder"
          point="org.eclipse.core.resources.builders">
@@ -176,9 +168,18 @@
    </extension>
    <extension
          point="org.eclipse.imp.runtime.toggleBreakpointHandler">
-         <toggleBreakpointHandler
-            language="leg"
-            class="org.eclipse.imp.leg.debug.LEGBreakpointHandler"/>
+      <toggleBreakpointHandler
+            class="org.eclipse.imp.leg.debug.LEGBreakpointHandler"
+            language="leg">
+      </toggleBreakpointHandler>
+   </extension>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            name="LEG"
+            class="org.eclipse.imp.leg.preferences.LEGPreferencePage"
+            id="org.eclipse.imp.LEG.preferences.LEG">
+      </page>
    </extension>
 
 </plugin>
