@@ -36,7 +36,7 @@ public class LEGNature extends ProjectNatureBase {
     }
 
     protected String getDownstreamBuilderID() {
-        // TODO Auto-generated method stub
-        return null;
+        // TODO Change this to the ID of the downstream builder, or return null if none
+        return "org.eclipse.jdt.core.javabuilder";
     }
 }
