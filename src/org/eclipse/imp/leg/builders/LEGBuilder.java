@@ -1,27 +1,24 @@
 package org.eclipse.imp.leg.builders;
 
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
-
+import org.eclipse.imp.builder.BuilderBase;
 import org.eclipse.imp.builder.BuilderUtils;
 import org.eclipse.imp.builder.MarkerCreator;
 import org.eclipse.imp.builder.MarkerCreatorWithBatching;
-import org.eclipse.imp.builder.BuilderBase;
 import org.eclipse.imp.language.Language;
 import org.eclipse.imp.language.LanguageRegistry;
-import org.eclipse.imp.model.ISourceProject;
-import org.eclipse.imp.model.ModelFactory;
-import org.eclipse.imp.model.ModelFactory.ModelException;
-import org.eclipse.imp.parser.IParseController;
-import org.eclipse.imp.runtime.PluginBase;
-import org.eclipse.imp.utils.UnimplementedError;
-
 import org.eclipse.imp.leg.Activator;
 import org.eclipse.imp.leg.compiler.LEGCompiler;
 import org.eclipse.imp.leg.parser.LEGParseController;
+import org.eclipse.imp.model.ISourceProject;
+import org.eclipse.imp.model.ModelFactory;
+import org.eclipse.imp.model.ModelFactory.ModelException;
+import org.eclipse.imp.parser.IMessageHandler;
+import org.eclipse.imp.parser.IParseController;
+import org.eclipse.imp.runtime.PluginBase;
 
 /**
  * A builder may be activated on a file containing LEG code every time it
@@ -36,19 +33,16 @@ public class LEGBuilder extends BuilderBase {
      * Extension ID of the LEG builder, which matches the ID in
      * the corresponding extension definition in plugin.xml.
      */
-    public static final String BUILDER_ID= Activator.kPluginID
-            + ".lEG.imp.builder";
+    public static final String BUILDER_ID= Activator.kPluginID + ".lEG.imp.builder";
 
     /**
      * A marker ID that identifies problems detected by the builder
      */
-    public static final String PROBLEM_MARKER_ID= Activator.kPluginID
-            + ".lEG.imp.builder.problem";
+    public static final String PROBLEM_MARKER_ID= Activator.kPluginID + ".lEG.imp.builder.problem";
 
     public static final String LANGUAGE_NAME= "LEG";
 
-    public static final Language LANGUAGE= LanguageRegistry
-            .findLanguage(LANGUAGE_NAME);
+    public static final Language LANGUAGE= LanguageRegistry.findLanguage(LANGUAGE_NAME);
 
     protected PluginBase getPlugin() {
         return Activator.getInstance();
@@ -110,9 +104,7 @@ public class LEGBuilder extends BuilderBase {
     protected void collectDependencies(IFile file) {
         String fromPath= file.getFullPath().toString();
 
-        getPlugin().writeInfoMsg(
-                "Collecting dependencies from LEG file: "
-                        + file.getName());
+//      getPlugin().writeInfoMsg("Collecting dependencies from LEG file: " + file.getName());
 
         // TODO: implement dependency collector
         // E.g. for each dependency:
@@ -131,7 +123,7 @@ public class LEGBuilder extends BuilderBase {
      */
     protected void compile(final IFile file, IProgressMonitor monitor) {
         try {
-            getPlugin().writeInfoMsg("Building LEG file: " + file.getName());
+//          getPlugin().writeInfoMsg("Building LEG file: " + file.getName());
 
             // START_HERE
             LEGCompiler compiler= new LEGCompiler(PROBLEM_MARKER_ID);
@@ -181,34 +173,27 @@ public class LEGBuilder extends BuilderBase {
      * @param file    input source file
      * @param monitor progress monitor
      */
-    protected void runParserForCompiler(final IFile file,
-            IProgressMonitor monitor) {
+    protected void runParserForCompiler(final IFile file, IProgressMonitor monitor) {
         try {
             IParseController parseController= new LEGParseController();
 
-            // TODO:  Pick a version of the marker creator (or just go with this one)
-            MarkerCreator markerCreator= new MarkerCreator(file,
-                    parseController, PROBLEM_MARKER_ID);
-            //			MarkerCreatorWithBatching markerCreator = new MarkerCreatorWithBatching(file, parseController, this);
+            // TODO: Pick a version of the marker creator (or just go with this one)
+            IMessageHandler msgHandler= new MarkerCreator(file, parseController, PROBLEM_MARKER_ID);
+            // IMessageHandler msgHandler= new MarkerCreatorWithBatching(file, parseController, this);
 
-            parseController.getAnnotationTypeInfo().addProblemMarkerType(
-                    getErrorMarkerID());
+            parseController.getAnnotationTypeInfo().addProblemMarkerType(getErrorMarkerID());
 
             ISourceProject sourceProject= ModelFactory.open(file.getProject());
-            parseController.initialize(file.getProjectRelativePath(),
-                    sourceProject, markerCreator);
+            parseController.initialize(file.getProjectRelativePath(), sourceProject, msgHandler);
 
             String contents= BuilderUtils.getFileContents(file);
             parseController.parse(contents, monitor);
 
-            if (markerCreator instanceof MarkerCreatorWithBatching) {
-                ((MarkerCreatorWithBatching) markerCreator).flush(monitor);
+            if (msgHandler instanceof MarkerCreatorWithBatching) {
+                ((MarkerCreatorWithBatching) msgHandler).flush(monitor);
             }
         } catch (ModelException e) {
-            getPlugin()
-                    .logException(
-                            "Example builder returns without parsing due to a ModelException",
-                            e);
+            getPlugin().logException("Example builder returns without parsing due to a ModelException", e);
         }
     }
 }
