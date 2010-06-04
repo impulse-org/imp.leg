@@ -27,15 +27,6 @@
       </language>
    </extension>
    <extension
-         id="org.eclipse.imp.leg.parserWrapper"
-         name="LEG Parser Wrapper"
-         point="org.eclipse.imp.runtime.parser">
-      <parserWrapper
-            class="org.eclipse.imp.leg.parser.LEGParseController"
-            language="LEG">
-      </parserWrapper>
-   </extension>
-   <extension
          point="org.eclipse.imp.runtime.tokenColorer">
       <tokenColorer
             class="org.eclipse.imp.leg.editor.TokenColorer"
@@ -123,10 +114,9 @@
    </extension>
    <extension
          point="org.eclipse.imp.runtime.markOccurrences">
-      <occurrenceMarker
+      <occurrenceIdentifier
             class="org.eclipse.imp.leg.occurrenceMarker.LEGOccurrenceMarker"
-            language="LEG">
-      </occurrenceMarker>
+            language="LEG"/>
    </extension>
    <extension
          point="org.eclipse.imp.runtime.referenceResolvers">
@@ -136,13 +126,13 @@
       </referenceResolver>
    </extension>
    <extension
-         id="org.eclipse.imp.leg.parserWrapper"
-         name="LEG Parser Wrapper"
+         id="org.eclipse.imp.leg.parser"
+         name="LEG Parser"
          point="org.eclipse.imp.runtime.parser">
-      <parserWrapper
+      <parser
             class="org.eclipse.imp.leg.parser.LEGParseController"
             language="LEG">
-      </parserWrapper>
+      </parser>
    </extension>
    <extension
          point="org.eclipse.ui.popupMenus">
