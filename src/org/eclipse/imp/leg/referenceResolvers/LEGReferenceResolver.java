@@ -11,16 +11,13 @@ import org.eclipse.imp.leg.parser.LEGParser;
 import org.eclipse.imp.leg.parser.Ast.*;
 
 public class LEGReferenceResolver implements IReferenceResolver {
-
-    public LEGReferenceResolver() {
-    }
+    public LEGReferenceResolver() { }
 
     /**
      * Get the text associated with the given node for use in a link
      * from (or to) that node
      */
     public String getLinkText(Object node) {
-        // TODO Replace the following with an implementation suitable to your language and reference types
         return node.toString();
     }
 
@@ -42,9 +39,9 @@ public class LEGReferenceResolver implements IReferenceResolver {
 
         if (node instanceof Iidentifier && controller.getCurrentAst() != null) {
             identifier id= (identifier) node;
-            LEGParser parser= (LEGParser) ((SimpleLPGParseController) controller)
-                    .getParser();
+            LEGParser parser= (LEGParser) ((SimpleLPGParseController) controller).getParser();
             SymbolTable<IAst> symtab= parser.getEnclosingSymbolTable(id);
+
             return symtab.findDeclaration(id.toString());
         }
 
