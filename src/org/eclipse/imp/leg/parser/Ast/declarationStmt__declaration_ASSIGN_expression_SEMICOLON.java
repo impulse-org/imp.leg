@@ -11,7 +11,7 @@ import java.util.Stack;
  *<li>Rule 22:  declarationStmt ::= declaration = expression ;
  *</b>
  */
-public class declarationStmt1 extends ASTNode implements IdeclarationStmt
+public class declarationStmt__declaration_ASSIGN_expression_SEMICOLON extends ASTNode implements IdeclarationStmt
 {
     private declaration _declaration;
     private ASTNodeToken _ASSIGN;
@@ -23,11 +23,11 @@ public class declarationStmt1 extends ASTNode implements IdeclarationStmt
     public Iexpression getexpression() { return _expression; }
     public ASTNodeToken getSEMICOLON() { return _SEMICOLON; }
 
-    public declarationStmt1(IToken leftIToken, IToken rightIToken,
-                            declaration _declaration,
-                            ASTNodeToken _ASSIGN,
-                            Iexpression _expression,
-                            ASTNodeToken _SEMICOLON)
+    public declarationStmt__declaration_ASSIGN_expression_SEMICOLON(IToken leftIToken, IToken rightIToken,
+                                                                    declaration _declaration,
+                                                                    ASTNodeToken _ASSIGN,
+                                                                    Iexpression _expression,
+                                                                    ASTNodeToken _SEMICOLON)
     {
         super(leftIToken, rightIToken);
 
@@ -58,9 +58,9 @@ public class declarationStmt1 extends ASTNode implements IdeclarationStmt
     public boolean equals(Object o)
     {
         if (o == this) return true;
-        if (! (o instanceof declarationStmt1)) return false;
+        if (! (o instanceof declarationStmt__declaration_ASSIGN_expression_SEMICOLON)) return false;
         if (! super.equals(o)) return false;
-        declarationStmt1 other = (declarationStmt1) o;
+        declarationStmt__declaration_ASSIGN_expression_SEMICOLON other = (declarationStmt__declaration_ASSIGN_expression_SEMICOLON) o;
         if (! _declaration.equals(other._declaration)) return false;
         if (! _ASSIGN.equals(other._ASSIGN)) return false;
         if (! _expression.equals(other._expression)) return false;

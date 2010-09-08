@@ -11,7 +11,7 @@ import java.util.Stack;
  *<li>Rule 34:  expression ::= expression + term
  *</b>
  */
-public class expression0 extends ASTNode implements Iexpression
+public class expression__expression_PLUS_term extends ASTNode implements Iexpression
 {
     private Iexpression _expression;
     private ASTNodeToken _PLUS;
@@ -21,10 +21,10 @@ public class expression0 extends ASTNode implements Iexpression
     public ASTNodeToken getPLUS() { return _PLUS; }
     public Iterm getterm() { return _term; }
 
-    public expression0(IToken leftIToken, IToken rightIToken,
-                       Iexpression _expression,
-                       ASTNodeToken _PLUS,
-                       Iterm _term)
+    public expression__expression_PLUS_term(IToken leftIToken, IToken rightIToken,
+                                            Iexpression _expression,
+                                            ASTNodeToken _PLUS,
+                                            Iterm _term)
     {
         super(leftIToken, rightIToken);
 
@@ -52,9 +52,9 @@ public class expression0 extends ASTNode implements Iexpression
     public boolean equals(Object o)
     {
         if (o == this) return true;
-        if (! (o instanceof expression0)) return false;
+        if (! (o instanceof expression__expression_PLUS_term)) return false;
         if (! super.equals(o)) return false;
-        expression0 other = (expression0) o;
+        expression__expression_PLUS_term other = (expression__expression_PLUS_term) o;
         if (! _expression.equals(other._expression)) return false;
         if (! _PLUS.equals(other._PLUS)) return false;
         if (! _term.equals(other._term)) return false;

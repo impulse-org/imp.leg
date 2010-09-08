@@ -81,22 +81,21 @@ public class LEGLabelProvider implements ILabelProvider {
             return stmt.getidentifier().toString() + "="
                     + stmt.getexpression().toString();
         }
-        if (n instanceof declarationStmt0) {
-            declaration decl= (declaration) ((declarationStmt0) n)
-                    .getdeclaration();
-            return decl.getprimitiveType() + " "
-                    + decl.getidentifier().toString();
-        }
-        if (n instanceof declarationStmt1) {
-            declaration decl= (declaration) ((declarationStmt1) n)
-                    .getdeclaration();
-            return decl.getprimitiveType() + " "
-                    + decl.getidentifier().toString();
+        if (n instanceof declarationStmt__declaration_ASSIGN_expression_SEMICOLON) {
+            declarationStmt__declaration_ASSIGN_expression_SEMICOLON declStmt= (declarationStmt__declaration_ASSIGN_expression_SEMICOLON) n;
+            declaration decl= (declaration) declStmt.getdeclaration();
+
+            return decl.getprimitiveType() + " " + decl.getidentifier().toString();
+        } else if (n instanceof declarationStmt__declaration_SEMICOLON) {
+            declarationStmt__declaration_SEMICOLON declStmt= (declarationStmt__declaration_SEMICOLON) n;
+            declaration decl= (declaration) declStmt.getdeclaration();
+
+            return decl.getprimitiveType() + " " + decl.getidentifier().toString();
         }
         if (n instanceof functionDeclaration) {
-            functionHeader hdr= (functionHeader) ((functionDeclaration) n)
-                    .getfunctionHeader();
+            functionHeader hdr= (functionHeader) ((functionDeclaration) n).getfunctionHeader();
             StringBuilder sb= new StringBuilder();
+
             sb.append(hdr.getType());
             sb.append(" ");
             sb.append(hdr.getidentifier().toString());

@@ -8,14 +8,14 @@ import java.util.Stack;
 
 /**
  *<b>
- *<li>Rule 45:  term ::= true
+ *<li>Rule 25:  primitiveType ::= boolean
  *</b>
  */
-public class term2 extends ASTNodeToken implements Iterm
+public class primitiveType__boolean extends ASTNodeToken implements IprimitiveType
 {
-    public IToken gettrue() { return leftIToken; }
+    public IToken getboolean() { return leftIToken; }
 
-    public term2(IToken token) { super(token); initialize(); }
+    public primitiveType__boolean(IToken token) { super(token); initialize(); }
 
     public void accept(IAstVisitor v)
     {

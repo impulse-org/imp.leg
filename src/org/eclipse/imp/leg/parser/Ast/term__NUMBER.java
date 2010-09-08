@@ -8,14 +8,14 @@ import java.util.Stack;
 
 /**
  *<b>
- *<li>Rule 26:  primitiveType ::= double
+ *<li>Rule 43:  term ::= NUMBER
  *</b>
  */
-public class primitiveType1 extends ASTNodeToken implements IprimitiveType
+public class term__NUMBER extends ASTNodeToken implements Iterm
 {
-    public IToken getdouble() { return leftIToken; }
+    public IToken getNUMBER() { return leftIToken; }
 
-    public primitiveType1(IToken token) { super(token); initialize(); }
+    public term__NUMBER(IToken token) { super(token); initialize(); }
 
     public void accept(IAstVisitor v)
     {

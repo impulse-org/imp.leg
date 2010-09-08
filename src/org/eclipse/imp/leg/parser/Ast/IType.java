@@ -5,9 +5,9 @@ package org.eclipse.imp.leg.parser.Ast;
  *<b>
  *<ul>
  *<li>Type
- *<li>primitiveType0
- *<li>primitiveType1
- *<li>primitiveType2
+ *<li>primitiveType__boolean
+ *<li>primitiveType__double
+ *<li>primitiveType__int
  *</ul>
  *</b>
  */

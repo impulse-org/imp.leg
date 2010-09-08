@@ -11,10 +11,10 @@ package org.eclipse.imp.leg.parser.Ast;
  *<li>returnStmt
  *<li>functionStmt
  *<li>BadAssignment
- *<li>declarationStmt0
- *<li>declarationStmt1
- *<li>ifStmt0
- *<li>ifStmt1
+ *<li>declarationStmt__declaration_SEMICOLON
+ *<li>declarationStmt__declaration_ASSIGN_expression_SEMICOLON
+ *<li>ifStmt__if_LEFTPAREN_expression_RIGHTPAREN_statement
+ *<li>ifStmt__if_LEFTPAREN_expression_RIGHTPAREN_statement_else_statement
  *</ul>
  *</b>
  */

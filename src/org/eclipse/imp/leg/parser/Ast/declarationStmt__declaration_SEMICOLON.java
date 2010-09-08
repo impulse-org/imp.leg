@@ -11,7 +11,7 @@ import java.util.Stack;
  *<li>Rule 21:  declarationStmt ::= declaration ;
  *</b>
  */
-public class declarationStmt0 extends ASTNode implements IdeclarationStmt
+public class declarationStmt__declaration_SEMICOLON extends ASTNode implements IdeclarationStmt
 {
     private declaration _declaration;
     private ASTNodeToken _SEMICOLON;
@@ -19,9 +19,9 @@ public class declarationStmt0 extends ASTNode implements IdeclarationStmt
     public declaration getdeclaration() { return _declaration; }
     public ASTNodeToken getSEMICOLON() { return _SEMICOLON; }
 
-    public declarationStmt0(IToken leftIToken, IToken rightIToken,
-                            declaration _declaration,
-                            ASTNodeToken _SEMICOLON)
+    public declarationStmt__declaration_SEMICOLON(IToken leftIToken, IToken rightIToken,
+                                                  declaration _declaration,
+                                                  ASTNodeToken _SEMICOLON)
     {
         super(leftIToken, rightIToken);
 
@@ -46,9 +46,9 @@ public class declarationStmt0 extends ASTNode implements IdeclarationStmt
     public boolean equals(Object o)
     {
         if (o == this) return true;
-        if (! (o instanceof declarationStmt0)) return false;
+        if (! (o instanceof declarationStmt__declaration_SEMICOLON)) return false;
         if (! super.equals(o)) return false;
-        declarationStmt0 other = (declarationStmt0) o;
+        declarationStmt__declaration_SEMICOLON other = (declarationStmt__declaration_SEMICOLON) o;
         if (! _declaration.equals(other._declaration)) return false;
         if (! _SEMICOLON.equals(other._SEMICOLON)) return false;
         return true;

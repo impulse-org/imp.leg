@@ -11,7 +11,7 @@ import java.util.Stack;
  *<li>Rule 30:  ifStmt ::= if ( expression ) statement
  *</b>
  */
-public class ifStmt0 extends ASTNode implements IifStmt
+public class ifStmt__if_LEFTPAREN_expression_RIGHTPAREN_statement extends ASTNode implements IifStmt
 {
     private ASTNodeToken _if;
     private ASTNodeToken _LEFTPAREN;
@@ -25,12 +25,12 @@ public class ifStmt0 extends ASTNode implements IifStmt
     public ASTNodeToken getRIGHTPAREN() { return _RIGHTPAREN; }
     public Istatement getstatement() { return _statement; }
 
-    public ifStmt0(IToken leftIToken, IToken rightIToken,
-                   ASTNodeToken _if,
-                   ASTNodeToken _LEFTPAREN,
-                   Iexpression _expression,
-                   ASTNodeToken _RIGHTPAREN,
-                   Istatement _statement)
+    public ifStmt__if_LEFTPAREN_expression_RIGHTPAREN_statement(IToken leftIToken, IToken rightIToken,
+                                                                ASTNodeToken _if,
+                                                                ASTNodeToken _LEFTPAREN,
+                                                                Iexpression _expression,
+                                                                ASTNodeToken _RIGHTPAREN,
+                                                                Istatement _statement)
     {
         super(leftIToken, rightIToken);
 
@@ -64,9 +64,9 @@ public class ifStmt0 extends ASTNode implements IifStmt
     public boolean equals(Object o)
     {
         if (o == this) return true;
-        if (! (o instanceof ifStmt0)) return false;
+        if (! (o instanceof ifStmt__if_LEFTPAREN_expression_RIGHTPAREN_statement)) return false;
         if (! super.equals(o)) return false;
-        ifStmt0 other = (ifStmt0) o;
+        ifStmt__if_LEFTPAREN_expression_RIGHTPAREN_statement other = (ifStmt__if_LEFTPAREN_expression_RIGHTPAREN_statement) o;
         if (! _if.equals(other._if)) return false;
         if (! _LEFTPAREN.equals(other._LEFTPAREN)) return false;
         if (! _expression.equals(other._expression)) return false;

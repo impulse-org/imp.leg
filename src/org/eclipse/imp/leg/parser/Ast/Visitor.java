@@ -65,62 +65,62 @@ public interface Visitor extends IAstVisitor
     boolean visit(BadAssignment n);
     void endVisit(BadAssignment n);
 
-    boolean visit(declarationStmt0 n);
-    void endVisit(declarationStmt0 n);
+    boolean visit(declarationStmt__declaration_SEMICOLON n);
+    void endVisit(declarationStmt__declaration_SEMICOLON n);
 
-    boolean visit(declarationStmt1 n);
-    void endVisit(declarationStmt1 n);
+    boolean visit(declarationStmt__declaration_ASSIGN_expression_SEMICOLON n);
+    void endVisit(declarationStmt__declaration_ASSIGN_expression_SEMICOLON n);
 
-    boolean visit(primitiveType0 n);
-    void endVisit(primitiveType0 n);
+    boolean visit(primitiveType__boolean n);
+    void endVisit(primitiveType__boolean n);
 
-    boolean visit(primitiveType1 n);
-    void endVisit(primitiveType1 n);
+    boolean visit(primitiveType__double n);
+    void endVisit(primitiveType__double n);
 
-    boolean visit(primitiveType2 n);
-    void endVisit(primitiveType2 n);
+    boolean visit(primitiveType__int n);
+    void endVisit(primitiveType__int n);
 
-    boolean visit(ifStmt0 n);
-    void endVisit(ifStmt0 n);
+    boolean visit(ifStmt__if_LEFTPAREN_expression_RIGHTPAREN_statement n);
+    void endVisit(ifStmt__if_LEFTPAREN_expression_RIGHTPAREN_statement n);
 
-    boolean visit(ifStmt1 n);
-    void endVisit(ifStmt1 n);
+    boolean visit(ifStmt__if_LEFTPAREN_expression_RIGHTPAREN_statement_else_statement n);
+    void endVisit(ifStmt__if_LEFTPAREN_expression_RIGHTPAREN_statement_else_statement n);
 
-    boolean visit(expression0 n);
-    void endVisit(expression0 n);
+    boolean visit(expression__expression_PLUS_term n);
+    void endVisit(expression__expression_PLUS_term n);
 
-    boolean visit(expression1 n);
-    void endVisit(expression1 n);
+    boolean visit(expression__expression_MINUS_term n);
+    void endVisit(expression__expression_MINUS_term n);
 
-    boolean visit(expression2 n);
-    void endVisit(expression2 n);
+    boolean visit(expression__expression_TIMES_term n);
+    void endVisit(expression__expression_TIMES_term n);
 
-    boolean visit(expression3 n);
-    void endVisit(expression3 n);
+    boolean visit(expression__expression_DIVIDE_term n);
+    void endVisit(expression__expression_DIVIDE_term n);
 
-    boolean visit(expression4 n);
-    void endVisit(expression4 n);
+    boolean visit(expression__expression_GREATER_term n);
+    void endVisit(expression__expression_GREATER_term n);
 
-    boolean visit(expression5 n);
-    void endVisit(expression5 n);
+    boolean visit(expression__expression_LESS_term n);
+    void endVisit(expression__expression_LESS_term n);
 
-    boolean visit(expression6 n);
-    void endVisit(expression6 n);
+    boolean visit(expression__expression_EQUAL_term n);
+    void endVisit(expression__expression_EQUAL_term n);
 
-    boolean visit(expression7 n);
-    void endVisit(expression7 n);
+    boolean visit(expression__expression_NOTEQUAL_term n);
+    void endVisit(expression__expression_NOTEQUAL_term n);
 
-    boolean visit(term0 n);
-    void endVisit(term0 n);
+    boolean visit(term__NUMBER n);
+    void endVisit(term__NUMBER n);
 
-    boolean visit(term1 n);
-    void endVisit(term1 n);
+    boolean visit(term__DoubleLiteral n);
+    void endVisit(term__DoubleLiteral n);
 
-    boolean visit(term2 n);
-    void endVisit(term2 n);
+    boolean visit(term__true n);
+    void endVisit(term__true n);
 
-    boolean visit(term3 n);
-    void endVisit(term3 n);
+    boolean visit(term__false n);
+    void endVisit(term__false n);
 
 }
 

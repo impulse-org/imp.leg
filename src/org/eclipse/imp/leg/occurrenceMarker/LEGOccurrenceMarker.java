@@ -7,27 +7,26 @@ import java.util.List;
 import java.util.Map;
 import java.util.Stack;
 
-import org.eclipse.imp.leg.parser.Ast.*; //import leg.imp.parser.Ast.ASTNode;
-//import leg.imp.parser.Ast.ASTNodeToken;
-//import leg.imp.parser.Ast.AbstractVisitor;
-//import leg.imp.parser.Ast.block;
-//import leg.imp.parser.Ast.declaration;
-//import leg.imp.parser.Ast.functionCall;
-//import leg.imp.parser.Ast.functionDeclaration;
-//import leg.imp.parser.Ast.functionDeclarationList;
-//import leg.imp.parser.Ast.functionHeader;
-//import leg.imp.parser.Ast.identifier;
-//import leg.imp.parser.Ast.primitiveType0;
-//import leg.imp.parser.Ast.primitiveType1;
-//import leg.imp.parser.Ast.primitiveType2;
-//import leg.imp.parser.Ast.term0;
-//import leg.imp.parser.Ast.term1;
-//import leg.imp.parser.Ast.term2;
-//import leg.imp.parser.Ast.term3;
-
 import lpg.runtime.IAst;
 
 import org.eclipse.imp.language.ILanguageService;
+import org.eclipse.imp.leg.parser.Ast.ASTNode;
+import org.eclipse.imp.leg.parser.Ast.ASTNodeToken;
+import org.eclipse.imp.leg.parser.Ast.AbstractVisitor;
+import org.eclipse.imp.leg.parser.Ast.block;
+import org.eclipse.imp.leg.parser.Ast.declaration;
+import org.eclipse.imp.leg.parser.Ast.functionCall;
+import org.eclipse.imp.leg.parser.Ast.functionDeclaration;
+import org.eclipse.imp.leg.parser.Ast.functionDeclarationList;
+import org.eclipse.imp.leg.parser.Ast.functionHeader;
+import org.eclipse.imp.leg.parser.Ast.identifier;
+import org.eclipse.imp.leg.parser.Ast.primitiveType__boolean;
+import org.eclipse.imp.leg.parser.Ast.primitiveType__double;
+import org.eclipse.imp.leg.parser.Ast.primitiveType__int;
+import org.eclipse.imp.leg.parser.Ast.term__DoubleLiteral;
+import org.eclipse.imp.leg.parser.Ast.term__NUMBER;
+import org.eclipse.imp.leg.parser.Ast.term__false;
+import org.eclipse.imp.leg.parser.Ast.term__true;
 import org.eclipse.imp.parser.IParseController;
 import org.eclipse.imp.services.IOccurrenceMarker;
 
@@ -114,13 +113,13 @@ public class LEGOccurrenceMarker implements ILanguageService, IOccurrenceMarker 
     public boolean nodeKindIndicatesLiteralOccurrences(Object ast) {
         // TODO:  identify AST node types that belong to this category.
         // Some examples are given.
-        if (ast instanceof term0 || // int values
-                ast instanceof term1 || // doubles values
-                ast instanceof term2 || // boolean "true"
-                ast instanceof term3 || // boolean "false"
-                ast instanceof primitiveType0 || // "boolean"
-                ast instanceof primitiveType1 || // "double"
-                ast instanceof primitiveType2 || // "int"
+        if (ast instanceof term__NUMBER || // int values
+                ast instanceof term__DoubleLiteral || // doubles values
+                ast instanceof term__true || // boolean "true"
+                ast instanceof term__false || // boolean "false"
+                ast instanceof primitiveType__boolean || // "boolean"
+                ast instanceof primitiveType__double || // "double"
+                ast instanceof primitiveType__int || // "int"
                 (ast instanceof ASTNodeToken && !(ast instanceof identifier)))
         // other tokens, "+", "=", ...,
         // but identifiers are treated separately
@@ -187,56 +186,56 @@ public class LEGOccurrenceMarker implements ILanguageService, IOccurrenceMarker 
         // Example visit(..) methods:
 
         // integer values
-        public boolean visit(term0 n) {
-            if (ast instanceof term0
+        public boolean visit(term__NUMBER n) {
+            if (ast instanceof term__NUMBER
                     && n.getNUMBER().toString().equals(
-                            ((term0) ast).getNUMBER().toString())) {
+                            ((term__NUMBER) ast).getNUMBER().toString())) {
                 fOccurrences.add(n);
             }
             return false;
         }
 
         // double values
-        public boolean visit(term1 n) {
-            if (ast instanceof term1
+        public boolean visit(term__DoubleLiteral n) {
+            if (ast instanceof term__DoubleLiteral
                     && n.getDoubleLiteral().toString().equals(
-                            ((term1) ast).getDoubleLiteral().toString())) {
+                            ((term__DoubleLiteral) ast).getDoubleLiteral().toString())) {
                 fOccurrences.add(n);
             }
             return false;
         }
 
         // term2 == true
-        public boolean visit(term2 n) {
-            if (ast instanceof term2)
+        public boolean visit(term__true n) {
+            if (ast instanceof term__true)
                 fOccurrences.add(n);
             return false;
         }
 
         // term 3 == false
-        public boolean visit(term3 n) {
-            if (ast instanceof term3)
+        public boolean visit(term__false n) {
+            if (ast instanceof term__false)
                 fOccurrences.add(n);
             return false;
         }
 
         // "boolean"
-        public boolean visit(primitiveType0 n) {
-            if (ast instanceof primitiveType0)
+        public boolean visit(primitiveType__boolean n) {
+            if (ast instanceof primitiveType__boolean)
                 fOccurrences.add(n);
             return false;
         }
 
         // "double"
-        public boolean visit(primitiveType1 n) {
-            if (ast instanceof primitiveType1)
+        public boolean visit(primitiveType__double n) {
+            if (ast instanceof primitiveType__double)
                 fOccurrences.add(n);
             return false;
         }
 
         // "int"
-        public boolean visit(primitiveType2 n) {
-            if (ast instanceof primitiveType2)
+        public boolean visit(primitiveType__int n) {
+            if (ast instanceof primitiveType__int)
                 fOccurrences.add(n);
             return false;
         }

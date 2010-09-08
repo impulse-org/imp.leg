@@ -6,10 +6,10 @@ package org.eclipse.imp.leg.parser.Ast;
  *<ul>
  *<li>functionCall
  *<li>identifier
- *<li>term0
- *<li>term1
- *<li>term2
- *<li>term3
+ *<li>term__NUMBER
+ *<li>term__DoubleLiteral
+ *<li>term__true
+ *<li>term__false
  *</ul>
  *</b>
  */

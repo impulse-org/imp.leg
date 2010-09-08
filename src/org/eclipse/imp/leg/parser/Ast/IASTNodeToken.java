@@ -20,17 +20,17 @@ import java.util.Stack;
  *<li>functionStmt
  *<li>identifier
  *<li>BadAssignment
- *<li>declarationStmt0
- *<li>declarationStmt1
- *<li>primitiveType0
- *<li>primitiveType1
- *<li>primitiveType2
- *<li>ifStmt0
- *<li>ifStmt1
- *<li>term0
- *<li>term1
- *<li>term2
- *<li>term3
+ *<li>declarationStmt__declaration_SEMICOLON
+ *<li>declarationStmt__declaration_ASSIGN_expression_SEMICOLON
+ *<li>primitiveType__boolean
+ *<li>primitiveType__double
+ *<li>primitiveType__int
+ *<li>ifStmt__if_LEFTPAREN_expression_RIGHTPAREN_statement
+ *<li>ifStmt__if_LEFTPAREN_expression_RIGHTPAREN_statement_else_statement
+ *<li>term__NUMBER
+ *<li>term__DoubleLiteral
+ *<li>term__true
+ *<li>term__false
  *</ul>
  *</b>
  */

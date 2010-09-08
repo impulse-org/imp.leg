@@ -68,62 +68,62 @@ public abstract class AbstractVisitor implements Visitor
     public boolean visit(BadAssignment n) { unimplementedVisitor("visit(BadAssignment)"); return true; }
     public void endVisit(BadAssignment n) { unimplementedVisitor("endVisit(BadAssignment)"); }
 
-    public boolean visit(declarationStmt0 n) { unimplementedVisitor("visit(declarationStmt0)"); return true; }
-    public void endVisit(declarationStmt0 n) { unimplementedVisitor("endVisit(declarationStmt0)"); }
+    public boolean visit(declarationStmt__declaration_SEMICOLON n) { unimplementedVisitor("visit(declarationStmt__declaration_SEMICOLON)"); return true; }
+    public void endVisit(declarationStmt__declaration_SEMICOLON n) { unimplementedVisitor("endVisit(declarationStmt__declaration_SEMICOLON)"); }
 
-    public boolean visit(declarationStmt1 n) { unimplementedVisitor("visit(declarationStmt1)"); return true; }
-    public void endVisit(declarationStmt1 n) { unimplementedVisitor("endVisit(declarationStmt1)"); }
+    public boolean visit(declarationStmt__declaration_ASSIGN_expression_SEMICOLON n) { unimplementedVisitor("visit(declarationStmt__declaration_ASSIGN_expression_SEMICOLON)"); return true; }
+    public void endVisit(declarationStmt__declaration_ASSIGN_expression_SEMICOLON n) { unimplementedVisitor("endVisit(declarationStmt__declaration_ASSIGN_expression_SEMICOLON)"); }
 
-    public boolean visit(primitiveType0 n) { unimplementedVisitor("visit(primitiveType0)"); return true; }
-    public void endVisit(primitiveType0 n) { unimplementedVisitor("endVisit(primitiveType0)"); }
+    public boolean visit(primitiveType__boolean n) { unimplementedVisitor("visit(primitiveType__boolean)"); return true; }
+    public void endVisit(primitiveType__boolean n) { unimplementedVisitor("endVisit(primitiveType__boolean)"); }
 
-    public boolean visit(primitiveType1 n) { unimplementedVisitor("visit(primitiveType1)"); return true; }
-    public void endVisit(primitiveType1 n) { unimplementedVisitor("endVisit(primitiveType1)"); }
+    public boolean visit(primitiveType__double n) { unimplementedVisitor("visit(primitiveType__double)"); return true; }
+    public void endVisit(primitiveType__double n) { unimplementedVisitor("endVisit(primitiveType__double)"); }
 
-    public boolean visit(primitiveType2 n) { unimplementedVisitor("visit(primitiveType2)"); return true; }
-    public void endVisit(primitiveType2 n) { unimplementedVisitor("endVisit(primitiveType2)"); }
+    public boolean visit(primitiveType__int n) { unimplementedVisitor("visit(primitiveType__int)"); return true; }
+    public void endVisit(primitiveType__int n) { unimplementedVisitor("endVisit(primitiveType__int)"); }
 
-    public boolean visit(ifStmt0 n) { unimplementedVisitor("visit(ifStmt0)"); return true; }
-    public void endVisit(ifStmt0 n) { unimplementedVisitor("endVisit(ifStmt0)"); }
+    public boolean visit(ifStmt__if_LEFTPAREN_expression_RIGHTPAREN_statement n) { unimplementedVisitor("visit(ifStmt__if_LEFTPAREN_expression_RIGHTPAREN_statement)"); return true; }
+    public void endVisit(ifStmt__if_LEFTPAREN_expression_RIGHTPAREN_statement n) { unimplementedVisitor("endVisit(ifStmt__if_LEFTPAREN_expression_RIGHTPAREN_statement)"); }
 
-    public boolean visit(ifStmt1 n) { unimplementedVisitor("visit(ifStmt1)"); return true; }
-    public void endVisit(ifStmt1 n) { unimplementedVisitor("endVisit(ifStmt1)"); }
+    public boolean visit(ifStmt__if_LEFTPAREN_expression_RIGHTPAREN_statement_else_statement n) { unimplementedVisitor("visit(ifStmt__if_LEFTPAREN_expression_RIGHTPAREN_statement_else_statement)"); return true; }
+    public void endVisit(ifStmt__if_LEFTPAREN_expression_RIGHTPAREN_statement_else_statement n) { unimplementedVisitor("endVisit(ifStmt__if_LEFTPAREN_expression_RIGHTPAREN_statement_else_statement)"); }
 
-    public boolean visit(expression0 n) { unimplementedVisitor("visit(expression0)"); return true; }
-    public void endVisit(expression0 n) { unimplementedVisitor("endVisit(expression0)"); }
+    public boolean visit(expression__expression_PLUS_term n) { unimplementedVisitor("visit(expression__expression_PLUS_term)"); return true; }
+    public void endVisit(expression__expression_PLUS_term n) { unimplementedVisitor("endVisit(expression__expression_PLUS_term)"); }
 
-    public boolean visit(expression1 n) { unimplementedVisitor("visit(expression1)"); return true; }
-    public void endVisit(expression1 n) { unimplementedVisitor("endVisit(expression1)"); }
+    public boolean visit(expression__expression_MINUS_term n) { unimplementedVisitor("visit(expression__expression_MINUS_term)"); return true; }
+    public void endVisit(expression__expression_MINUS_term n) { unimplementedVisitor("endVisit(expression__expression_MINUS_term)"); }
 
-    public boolean visit(expression2 n) { unimplementedVisitor("visit(expression2)"); return true; }
-    public void endVisit(expression2 n) { unimplementedVisitor("endVisit(expression2)"); }
+    public boolean visit(expression__expression_TIMES_term n) { unimplementedVisitor("visit(expression__expression_TIMES_term)"); return true; }
+    public void endVisit(expression__expression_TIMES_term n) { unimplementedVisitor("endVisit(expression__expression_TIMES_term)"); }
 
-    public boolean visit(expression3 n) { unimplementedVisitor("visit(expression3)"); return true; }
-    public void endVisit(expression3 n) { unimplementedVisitor("endVisit(expression3)"); }
+    public boolean visit(expression__expression_DIVIDE_term n) { unimplementedVisitor("visit(expression__expression_DIVIDE_term)"); return true; }
+    public void endVisit(expression__expression_DIVIDE_term n) { unimplementedVisitor("endVisit(expression__expression_DIVIDE_term)"); }
 
-    public boolean visit(expression4 n) { unimplementedVisitor("visit(expression4)"); return true; }
-    public void endVisit(expression4 n) { unimplementedVisitor("endVisit(expression4)"); }
+    public boolean visit(expression__expression_GREATER_term n) { unimplementedVisitor("visit(expression__expression_GREATER_term)"); return true; }
+    public void endVisit(expression__expression_GREATER_term n) { unimplementedVisitor("endVisit(expression__expression_GREATER_term)"); }
 
-    public boolean visit(expression5 n) { unimplementedVisitor("visit(expression5)"); return true; }
-    public void endVisit(expression5 n) { unimplementedVisitor("endVisit(expression5)"); }
+    public boolean visit(expression__expression_LESS_term n) { unimplementedVisitor("visit(expression__expression_LESS_term)"); return true; }
+    public void endVisit(expression__expression_LESS_term n) { unimplementedVisitor("endVisit(expression__expression_LESS_term)"); }
 
-    public boolean visit(expression6 n) { unimplementedVisitor("visit(expression6)"); return true; }
-    public void endVisit(expression6 n) { unimplementedVisitor("endVisit(expression6)"); }
+    public boolean visit(expression__expression_EQUAL_term n) { unimplementedVisitor("visit(expression__expression_EQUAL_term)"); return true; }
+    public void endVisit(expression__expression_EQUAL_term n) { unimplementedVisitor("endVisit(expression__expression_EQUAL_term)"); }
 
-    public boolean visit(expression7 n) { unimplementedVisitor("visit(expression7)"); return true; }
-    public void endVisit(expression7 n) { unimplementedVisitor("endVisit(expression7)"); }
+    public boolean visit(expression__expression_NOTEQUAL_term n) { unimplementedVisitor("visit(expression__expression_NOTEQUAL_term)"); return true; }
+    public void endVisit(expression__expression_NOTEQUAL_term n) { unimplementedVisitor("endVisit(expression__expression_NOTEQUAL_term)"); }
 
-    public boolean visit(term0 n) { unimplementedVisitor("visit(term0)"); return true; }
-    public void endVisit(term0 n) { unimplementedVisitor("endVisit(term0)"); }
+    public boolean visit(term__NUMBER n) { unimplementedVisitor("visit(term__NUMBER)"); return true; }
+    public void endVisit(term__NUMBER n) { unimplementedVisitor("endVisit(term__NUMBER)"); }
 
-    public boolean visit(term1 n) { unimplementedVisitor("visit(term1)"); return true; }
-    public void endVisit(term1 n) { unimplementedVisitor("endVisit(term1)"); }
+    public boolean visit(term__DoubleLiteral n) { unimplementedVisitor("visit(term__DoubleLiteral)"); return true; }
+    public void endVisit(term__DoubleLiteral n) { unimplementedVisitor("endVisit(term__DoubleLiteral)"); }
 
-    public boolean visit(term2 n) { unimplementedVisitor("visit(term2)"); return true; }
-    public void endVisit(term2 n) { unimplementedVisitor("endVisit(term2)"); }
+    public boolean visit(term__true n) { unimplementedVisitor("visit(term__true)"); return true; }
+    public void endVisit(term__true n) { unimplementedVisitor("endVisit(term__true)"); }
 
-    public boolean visit(term3 n) { unimplementedVisitor("visit(term3)"); return true; }
-    public void endVisit(term3 n) { unimplementedVisitor("endVisit(term3)"); }
+    public boolean visit(term__false n) { unimplementedVisitor("visit(term__false)"); return true; }
+    public void endVisit(term__false n) { unimplementedVisitor("endVisit(term__false)"); }
 
 
     public boolean visit(ASTNode n)
@@ -146,25 +146,25 @@ public abstract class AbstractVisitor implements Visitor
         else if (n instanceof expressionList) return visit((expressionList) n);
         else if (n instanceof identifier) return visit((identifier) n);
         else if (n instanceof BadAssignment) return visit((BadAssignment) n);
-        else if (n instanceof declarationStmt0) return visit((declarationStmt0) n);
-        else if (n instanceof declarationStmt1) return visit((declarationStmt1) n);
-        else if (n instanceof primitiveType0) return visit((primitiveType0) n);
-        else if (n instanceof primitiveType1) return visit((primitiveType1) n);
-        else if (n instanceof primitiveType2) return visit((primitiveType2) n);
-        else if (n instanceof ifStmt0) return visit((ifStmt0) n);
-        else if (n instanceof ifStmt1) return visit((ifStmt1) n);
-        else if (n instanceof expression0) return visit((expression0) n);
-        else if (n instanceof expression1) return visit((expression1) n);
-        else if (n instanceof expression2) return visit((expression2) n);
-        else if (n instanceof expression3) return visit((expression3) n);
-        else if (n instanceof expression4) return visit((expression4) n);
-        else if (n instanceof expression5) return visit((expression5) n);
-        else if (n instanceof expression6) return visit((expression6) n);
-        else if (n instanceof expression7) return visit((expression7) n);
-        else if (n instanceof term0) return visit((term0) n);
-        else if (n instanceof term1) return visit((term1) n);
-        else if (n instanceof term2) return visit((term2) n);
-        else if (n instanceof term3) return visit((term3) n);
+        else if (n instanceof declarationStmt__declaration_SEMICOLON) return visit((declarationStmt__declaration_SEMICOLON) n);
+        else if (n instanceof declarationStmt__declaration_ASSIGN_expression_SEMICOLON) return visit((declarationStmt__declaration_ASSIGN_expression_SEMICOLON) n);
+        else if (n instanceof primitiveType__boolean) return visit((primitiveType__boolean) n);
+        else if (n instanceof primitiveType__double) return visit((primitiveType__double) n);
+        else if (n instanceof primitiveType__int) return visit((primitiveType__int) n);
+        else if (n instanceof ifStmt__if_LEFTPAREN_expression_RIGHTPAREN_statement) return visit((ifStmt__if_LEFTPAREN_expression_RIGHTPAREN_statement) n);
+        else if (n instanceof ifStmt__if_LEFTPAREN_expression_RIGHTPAREN_statement_else_statement) return visit((ifStmt__if_LEFTPAREN_expression_RIGHTPAREN_statement_else_statement) n);
+        else if (n instanceof expression__expression_PLUS_term) return visit((expression__expression_PLUS_term) n);
+        else if (n instanceof expression__expression_MINUS_term) return visit((expression__expression_MINUS_term) n);
+        else if (n instanceof expression__expression_TIMES_term) return visit((expression__expression_TIMES_term) n);
+        else if (n instanceof expression__expression_DIVIDE_term) return visit((expression__expression_DIVIDE_term) n);
+        else if (n instanceof expression__expression_GREATER_term) return visit((expression__expression_GREATER_term) n);
+        else if (n instanceof expression__expression_LESS_term) return visit((expression__expression_LESS_term) n);
+        else if (n instanceof expression__expression_EQUAL_term) return visit((expression__expression_EQUAL_term) n);
+        else if (n instanceof expression__expression_NOTEQUAL_term) return visit((expression__expression_NOTEQUAL_term) n);
+        else if (n instanceof term__NUMBER) return visit((term__NUMBER) n);
+        else if (n instanceof term__DoubleLiteral) return visit((term__DoubleLiteral) n);
+        else if (n instanceof term__true) return visit((term__true) n);
+        else if (n instanceof term__false) return visit((term__false) n);
         throw new UnsupportedOperationException("visit(" + n.getClass().toString() + ")");
     }
     public void endVisit(ASTNode n)
@@ -187,25 +187,25 @@ public abstract class AbstractVisitor implements Visitor
         else if (n instanceof expressionList) endVisit((expressionList) n);
         else if (n instanceof identifier) endVisit((identifier) n);
         else if (n instanceof BadAssignment) endVisit((BadAssignment) n);
-        else if (n instanceof declarationStmt0) endVisit((declarationStmt0) n);
-        else if (n instanceof declarationStmt1) endVisit((declarationStmt1) n);
-        else if (n instanceof primitiveType0) endVisit((primitiveType0) n);
-        else if (n instanceof primitiveType1) endVisit((primitiveType1) n);
-        else if (n instanceof primitiveType2) endVisit((primitiveType2) n);
-        else if (n instanceof ifStmt0) endVisit((ifStmt0) n);
-        else if (n instanceof ifStmt1) endVisit((ifStmt1) n);
-        else if (n instanceof expression0) endVisit((expression0) n);
-        else if (n instanceof expression1) endVisit((expression1) n);
-        else if (n instanceof expression2) endVisit((expression2) n);
-        else if (n instanceof expression3) endVisit((expression3) n);
-        else if (n instanceof expression4) endVisit((expression4) n);
-        else if (n instanceof expression5) endVisit((expression5) n);
-        else if (n instanceof expression6) endVisit((expression6) n);
-        else if (n instanceof expression7) endVisit((expression7) n);
-        else if (n instanceof term0) endVisit((term0) n);
-        else if (n instanceof term1) endVisit((term1) n);
-        else if (n instanceof term2) endVisit((term2) n);
-        else if (n instanceof term3) endVisit((term3) n);
+        else if (n instanceof declarationStmt__declaration_SEMICOLON) endVisit((declarationStmt__declaration_SEMICOLON) n);
+        else if (n instanceof declarationStmt__declaration_ASSIGN_expression_SEMICOLON) endVisit((declarationStmt__declaration_ASSIGN_expression_SEMICOLON) n);
+        else if (n instanceof primitiveType__boolean) endVisit((primitiveType__boolean) n);
+        else if (n instanceof primitiveType__double) endVisit((primitiveType__double) n);
+        else if (n instanceof primitiveType__int) endVisit((primitiveType__int) n);
+        else if (n instanceof ifStmt__if_LEFTPAREN_expression_RIGHTPAREN_statement) endVisit((ifStmt__if_LEFTPAREN_expression_RIGHTPAREN_statement) n);
+        else if (n instanceof ifStmt__if_LEFTPAREN_expression_RIGHTPAREN_statement_else_statement) endVisit((ifStmt__if_LEFTPAREN_expression_RIGHTPAREN_statement_else_statement) n);
+        else if (n instanceof expression__expression_PLUS_term) endVisit((expression__expression_PLUS_term) n);
+        else if (n instanceof expression__expression_MINUS_term) endVisit((expression__expression_MINUS_term) n);
+        else if (n instanceof expression__expression_TIMES_term) endVisit((expression__expression_TIMES_term) n);
+        else if (n instanceof expression__expression_DIVIDE_term) endVisit((expression__expression_DIVIDE_term) n);
+        else if (n instanceof expression__expression_GREATER_term) endVisit((expression__expression_GREATER_term) n);
+        else if (n instanceof expression__expression_LESS_term) endVisit((expression__expression_LESS_term) n);
+        else if (n instanceof expression__expression_EQUAL_term) endVisit((expression__expression_EQUAL_term) n);
+        else if (n instanceof expression__expression_NOTEQUAL_term) endVisit((expression__expression_NOTEQUAL_term) n);
+        else if (n instanceof term__NUMBER) endVisit((term__NUMBER) n);
+        else if (n instanceof term__DoubleLiteral) endVisit((term__DoubleLiteral) n);
+        else if (n instanceof term__true) endVisit((term__true) n);
+        else if (n instanceof term__false) endVisit((term__false) n);
         throw new UnsupportedOperationException("visit(" + n.getClass().toString() + ")");
     }
 }

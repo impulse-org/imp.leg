@@ -441,9 +441,9 @@ public class LEGParser implements RuleAction, IParser
             //
             case 21: {
                 setResult(
-                    new declarationStmt0(getLeftIToken(), getRightIToken(),
-                                         (declaration)getRhsSym(1),
-                                         new ASTNodeToken(getRhsIToken(2)))
+                    new declarationStmt__declaration_SEMICOLON(getLeftIToken(), getRightIToken(),
+                                                               (declaration)getRhsSym(1),
+                                                               new ASTNodeToken(getRhsIToken(2)))
                 );
                 break;
             }
@@ -452,11 +452,11 @@ public class LEGParser implements RuleAction, IParser
             //
             case 22: {
                 setResult(
-                    new declarationStmt1(getLeftIToken(), getRightIToken(),
-                                         (declaration)getRhsSym(1),
-                                         new ASTNodeToken(getRhsIToken(2)),
-                                         (Iexpression)getRhsSym(3),
-                                         new ASTNodeToken(getRhsIToken(4)))
+                    new declarationStmt__declaration_ASSIGN_expression_SEMICOLON(getLeftIToken(), getRightIToken(),
+                                                                                 (declaration)getRhsSym(1),
+                                                                                 new ASTNodeToken(getRhsIToken(2)),
+                                                                                 (Iexpression)getRhsSym(3),
+                                                                                 new ASTNodeToken(getRhsIToken(4)))
                 );
                 break;
             }
@@ -479,7 +479,7 @@ public class LEGParser implements RuleAction, IParser
             //
             case 25: {
                 setResult(
-                    new primitiveType0(getRhsIToken(1))
+                    new primitiveType__boolean(getRhsIToken(1))
                 );
                 break;
             }
@@ -488,7 +488,7 @@ public class LEGParser implements RuleAction, IParser
             //
             case 26: {
                 setResult(
-                    new primitiveType1(getRhsIToken(1))
+                    new primitiveType__double(getRhsIToken(1))
                 );
                 break;
             }
@@ -497,7 +497,7 @@ public class LEGParser implements RuleAction, IParser
             //
             case 27: {
                 setResult(
-                    new primitiveType2(getRhsIToken(1))
+                    new primitiveType__int(getRhsIToken(1))
                 );
                 break;
             }
@@ -524,12 +524,12 @@ public class LEGParser implements RuleAction, IParser
             //
             case 30: {
                 setResult(
-                    new ifStmt0(getLeftIToken(), getRightIToken(),
-                                new ASTNodeToken(getRhsIToken(1)),
-                                new ASTNodeToken(getRhsIToken(2)),
-                                (Iexpression)getRhsSym(3),
-                                new ASTNodeToken(getRhsIToken(4)),
-                                (Istatement)getRhsSym(5))
+                    new ifStmt__if_LEFTPAREN_expression_RIGHTPAREN_statement(getLeftIToken(), getRightIToken(),
+                                                                             new ASTNodeToken(getRhsIToken(1)),
+                                                                             new ASTNodeToken(getRhsIToken(2)),
+                                                                             (Iexpression)getRhsSym(3),
+                                                                             new ASTNodeToken(getRhsIToken(4)),
+                                                                             (Istatement)getRhsSym(5))
                 );
                 break;
             }
@@ -538,14 +538,14 @@ public class LEGParser implements RuleAction, IParser
             //
             case 31: {
                 setResult(
-                    new ifStmt1(getLeftIToken(), getRightIToken(),
-                                new ASTNodeToken(getRhsIToken(1)),
-                                new ASTNodeToken(getRhsIToken(2)),
-                                (Iexpression)getRhsSym(3),
-                                new ASTNodeToken(getRhsIToken(4)),
-                                (Istatement)getRhsSym(5),
-                                new ASTNodeToken(getRhsIToken(6)),
-                                (Istatement)getRhsSym(7))
+                    new ifStmt__if_LEFTPAREN_expression_RIGHTPAREN_statement_else_statement(getLeftIToken(), getRightIToken(),
+                                                                                            new ASTNodeToken(getRhsIToken(1)),
+                                                                                            new ASTNodeToken(getRhsIToken(2)),
+                                                                                            (Iexpression)getRhsSym(3),
+                                                                                            new ASTNodeToken(getRhsIToken(4)),
+                                                                                            (Istatement)getRhsSym(5),
+                                                                                            new ASTNodeToken(getRhsIToken(6)),
+                                                                                            (Istatement)getRhsSym(7))
                 );
                 break;
             }
@@ -580,10 +580,10 @@ public class LEGParser implements RuleAction, IParser
             //
             case 34: {
                 setResult(
-                    new expression0(getLeftIToken(), getRightIToken(),
-                                    (Iexpression)getRhsSym(1),
-                                    new ASTNodeToken(getRhsIToken(2)),
-                                    (Iterm)getRhsSym(3))
+                    new expression__expression_PLUS_term(getLeftIToken(), getRightIToken(),
+                                                         (Iexpression)getRhsSym(1),
+                                                         new ASTNodeToken(getRhsIToken(2)),
+                                                         (Iterm)getRhsSym(3))
                 );
                 break;
             }
@@ -592,10 +592,10 @@ public class LEGParser implements RuleAction, IParser
             //
             case 35: {
                 setResult(
-                    new expression1(getLeftIToken(), getRightIToken(),
-                                    (Iexpression)getRhsSym(1),
-                                    new ASTNodeToken(getRhsIToken(2)),
-                                    (Iterm)getRhsSym(3))
+                    new expression__expression_MINUS_term(getLeftIToken(), getRightIToken(),
+                                                          (Iexpression)getRhsSym(1),
+                                                          new ASTNodeToken(getRhsIToken(2)),
+                                                          (Iterm)getRhsSym(3))
                 );
                 break;
             }
@@ -604,10 +604,10 @@ public class LEGParser implements RuleAction, IParser
             //
             case 36: {
                 setResult(
-                    new expression2(getLeftIToken(), getRightIToken(),
-                                    (Iexpression)getRhsSym(1),
-                                    new ASTNodeToken(getRhsIToken(2)),
-                                    (Iterm)getRhsSym(3))
+                    new expression__expression_TIMES_term(getLeftIToken(), getRightIToken(),
+                                                          (Iexpression)getRhsSym(1),
+                                                          new ASTNodeToken(getRhsIToken(2)),
+                                                          (Iterm)getRhsSym(3))
                 );
                 break;
             }
@@ -616,10 +616,10 @@ public class LEGParser implements RuleAction, IParser
             //
             case 37: {
                 setResult(
-                    new expression3(getLeftIToken(), getRightIToken(),
-                                    (Iexpression)getRhsSym(1),
-                                    new ASTNodeToken(getRhsIToken(2)),
-                                    (Iterm)getRhsSym(3))
+                    new expression__expression_DIVIDE_term(getLeftIToken(), getRightIToken(),
+                                                           (Iexpression)getRhsSym(1),
+                                                           new ASTNodeToken(getRhsIToken(2)),
+                                                           (Iterm)getRhsSym(3))
                 );
                 break;
             }
@@ -628,10 +628,10 @@ public class LEGParser implements RuleAction, IParser
             //
             case 38: {
                 setResult(
-                    new expression4(getLeftIToken(), getRightIToken(),
-                                    (Iexpression)getRhsSym(1),
-                                    new ASTNodeToken(getRhsIToken(2)),
-                                    (Iterm)getRhsSym(3))
+                    new expression__expression_GREATER_term(getLeftIToken(), getRightIToken(),
+                                                            (Iexpression)getRhsSym(1),
+                                                            new ASTNodeToken(getRhsIToken(2)),
+                                                            (Iterm)getRhsSym(3))
                 );
                 break;
             }
@@ -640,10 +640,10 @@ public class LEGParser implements RuleAction, IParser
             //
             case 39: {
                 setResult(
-                    new expression5(getLeftIToken(), getRightIToken(),
-                                    (Iexpression)getRhsSym(1),
-                                    new ASTNodeToken(getRhsIToken(2)),
-                                    (Iterm)getRhsSym(3))
+                    new expression__expression_LESS_term(getLeftIToken(), getRightIToken(),
+                                                         (Iexpression)getRhsSym(1),
+                                                         new ASTNodeToken(getRhsIToken(2)),
+                                                         (Iterm)getRhsSym(3))
                 );
                 break;
             }
@@ -652,10 +652,10 @@ public class LEGParser implements RuleAction, IParser
             //
             case 40: {
                 setResult(
-                    new expression6(getLeftIToken(), getRightIToken(),
-                                    (Iexpression)getRhsSym(1),
-                                    new ASTNodeToken(getRhsIToken(2)),
-                                    (Iterm)getRhsSym(3))
+                    new expression__expression_EQUAL_term(getLeftIToken(), getRightIToken(),
+                                                          (Iexpression)getRhsSym(1),
+                                                          new ASTNodeToken(getRhsIToken(2)),
+                                                          (Iterm)getRhsSym(3))
                 );
                 break;
             }
@@ -664,10 +664,10 @@ public class LEGParser implements RuleAction, IParser
             //
             case 41: {
                 setResult(
-                    new expression7(getLeftIToken(), getRightIToken(),
-                                    (Iexpression)getRhsSym(1),
-                                    new ASTNodeToken(getRhsIToken(2)),
-                                    (Iterm)getRhsSym(3))
+                    new expression__expression_NOTEQUAL_term(getLeftIToken(), getRightIToken(),
+                                                             (Iexpression)getRhsSym(1),
+                                                             new ASTNodeToken(getRhsIToken(2)),
+                                                             (Iterm)getRhsSym(3))
                 );
                 break;
             }
@@ -681,7 +681,7 @@ public class LEGParser implements RuleAction, IParser
             //
             case 43: {
                 setResult(
-                    new term0(getRhsIToken(1))
+                    new term__NUMBER(getRhsIToken(1))
                 );
                 break;
             }
@@ -690,7 +690,7 @@ public class LEGParser implements RuleAction, IParser
             //
             case 44: {
                 setResult(
-                    new term1(getRhsIToken(1))
+                    new term__DoubleLiteral(getRhsIToken(1))
                 );
                 break;
             }
@@ -699,7 +699,7 @@ public class LEGParser implements RuleAction, IParser
             //
             case 45: {
                 setResult(
-                    new term2(getRhsIToken(1))
+                    new term__true(getRhsIToken(1))
                 );
                 break;
             }
@@ -708,7 +708,7 @@ public class LEGParser implements RuleAction, IParser
             //
             case 46: {
                 setResult(
-                    new term3(getRhsIToken(1))
+                    new term__false(getRhsIToken(1))
                 );
                 break;
             }

@@ -29,12 +29,12 @@ public class LEGTreeModelBuilder extends TreeModelBuilderBase {
             popSubItem();
         }
 
-        public boolean visit(declarationStmt0 n) {
+        public boolean visit(declarationStmt__declaration_ASSIGN_expression_SEMICOLON n) {
             createSubItem(n);
             return true;
         }
 
-        public boolean visit(declarationStmt1 n) {
+        public boolean visit(declarationStmt__declaration_SEMICOLON n) {
             createSubItem(n);
             return true;
         }

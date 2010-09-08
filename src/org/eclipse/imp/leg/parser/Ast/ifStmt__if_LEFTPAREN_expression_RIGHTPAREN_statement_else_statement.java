@@ -11,7 +11,7 @@ import java.util.Stack;
  *<li>Rule 31:  ifStmt ::= if ( expression ) statement else statement
  *</b>
  */
-public class ifStmt1 extends ASTNode implements IifStmt
+public class ifStmt__if_LEFTPAREN_expression_RIGHTPAREN_statement_else_statement extends ASTNode implements IifStmt
 {
     private ASTNodeToken _if;
     private ASTNodeToken _LEFTPAREN;
@@ -29,14 +29,14 @@ public class ifStmt1 extends ASTNode implements IifStmt
     public ASTNodeToken getelse() { return _else; }
     public Istatement getstatement7() { return _statement7; }
 
-    public ifStmt1(IToken leftIToken, IToken rightIToken,
-                   ASTNodeToken _if,
-                   ASTNodeToken _LEFTPAREN,
-                   Iexpression _expression,
-                   ASTNodeToken _RIGHTPAREN,
-                   Istatement _statement,
-                   ASTNodeToken _else,
-                   Istatement _statement7)
+    public ifStmt__if_LEFTPAREN_expression_RIGHTPAREN_statement_else_statement(IToken leftIToken, IToken rightIToken,
+                                                                               ASTNodeToken _if,
+                                                                               ASTNodeToken _LEFTPAREN,
+                                                                               Iexpression _expression,
+                                                                               ASTNodeToken _RIGHTPAREN,
+                                                                               Istatement _statement,
+                                                                               ASTNodeToken _else,
+                                                                               Istatement _statement7)
     {
         super(leftIToken, rightIToken);
 
@@ -76,9 +76,9 @@ public class ifStmt1 extends ASTNode implements IifStmt
     public boolean equals(Object o)
     {
         if (o == this) return true;
-        if (! (o instanceof ifStmt1)) return false;
+        if (! (o instanceof ifStmt__if_LEFTPAREN_expression_RIGHTPAREN_statement_else_statement)) return false;
         if (! super.equals(o)) return false;
-        ifStmt1 other = (ifStmt1) o;
+        ifStmt__if_LEFTPAREN_expression_RIGHTPAREN_statement_else_statement other = (ifStmt__if_LEFTPAREN_expression_RIGHTPAREN_statement_else_statement) o;
         if (! _if.equals(other._if)) return false;
         if (! _LEFTPAREN.equals(other._LEFTPAREN)) return false;
         if (! _expression.equals(other._expression)) return false;

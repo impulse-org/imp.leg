@@ -12,18 +12,18 @@ import java.util.Stack;
  *<ul>
  *<li>functionCall
  *<li>identifier
- *<li>expression0
- *<li>expression1
- *<li>expression2
- *<li>expression3
- *<li>expression4
- *<li>expression5
- *<li>expression6
- *<li>expression7
- *<li>term0
- *<li>term1
- *<li>term2
- *<li>term3
+ *<li>expression__expression_PLUS_term
+ *<li>expression__expression_MINUS_term
+ *<li>expression__expression_TIMES_term
+ *<li>expression__expression_DIVIDE_term
+ *<li>expression__expression_GREATER_term
+ *<li>expression__expression_LESS_term
+ *<li>expression__expression_EQUAL_term
+ *<li>expression__expression_NOTEQUAL_term
+ *<li>term__NUMBER
+ *<li>term__DoubleLiteral
+ *<li>term__true
+ *<li>term__false
  *</ul>
  *</b>
  */

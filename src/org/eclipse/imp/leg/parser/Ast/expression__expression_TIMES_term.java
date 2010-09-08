@@ -8,30 +8,30 @@ import java.util.Stack;
 
 /**
  *<b>
- *<li>Rule 39:  expression ::= expression < term
+ *<li>Rule 36:  expression ::= expression * term
  *</b>
  */
-public class expression5 extends ASTNode implements Iexpression
+public class expression__expression_TIMES_term extends ASTNode implements Iexpression
 {
     private Iexpression _expression;
-    private ASTNodeToken _LESS;
+    private ASTNodeToken _TIMES;
     private Iterm _term;
 
     public Iexpression getexpression() { return _expression; }
-    public ASTNodeToken getLESS() { return _LESS; }
+    public ASTNodeToken getTIMES() { return _TIMES; }
     public Iterm getterm() { return _term; }
 
-    public expression5(IToken leftIToken, IToken rightIToken,
-                       Iexpression _expression,
-                       ASTNodeToken _LESS,
-                       Iterm _term)
+    public expression__expression_TIMES_term(IToken leftIToken, IToken rightIToken,
+                                             Iexpression _expression,
+                                             ASTNodeToken _TIMES,
+                                             Iterm _term)
     {
         super(leftIToken, rightIToken);
 
         this._expression = _expression;
         ((ASTNode) _expression).setParent(this);
-        this._LESS = _LESS;
-        ((ASTNode) _LESS).setParent(this);
+        this._TIMES = _TIMES;
+        ((ASTNode) _TIMES).setParent(this);
         this._term = _term;
         ((ASTNode) _term).setParent(this);
         initialize();
@@ -44,7 +44,7 @@ public class expression5 extends ASTNode implements Iexpression
     {
         java.util.ArrayList list = new java.util.ArrayList();
         list.add(_expression);
-        list.add(_LESS);
+        list.add(_TIMES);
         list.add(_term);
         return list;
     }
@@ -52,11 +52,11 @@ public class expression5 extends ASTNode implements Iexpression
     public boolean equals(Object o)
     {
         if (o == this) return true;
-        if (! (o instanceof expression5)) return false;
+        if (! (o instanceof expression__expression_TIMES_term)) return false;
         if (! super.equals(o)) return false;
-        expression5 other = (expression5) o;
+        expression__expression_TIMES_term other = (expression__expression_TIMES_term) o;
         if (! _expression.equals(other._expression)) return false;
-        if (! _LESS.equals(other._LESS)) return false;
+        if (! _TIMES.equals(other._TIMES)) return false;
         if (! _term.equals(other._term)) return false;
         return true;
     }
@@ -65,7 +65,7 @@ public class expression5 extends ASTNode implements Iexpression
     {
         int hash = super.hashCode();
         hash = hash * 31 + (_expression.hashCode());
-        hash = hash * 31 + (_LESS.hashCode());
+        hash = hash * 31 + (_TIMES.hashCode());
         hash = hash * 31 + (_term.hashCode());
         return hash;
     }
@@ -83,7 +83,7 @@ public class expression5 extends ASTNode implements Iexpression
         if (checkChildren)
         {
             _expression.accept(v);
-            _LESS.accept(v);
+            _TIMES.accept(v);
             _term.accept(v);
         }
         v.endVisit(this);

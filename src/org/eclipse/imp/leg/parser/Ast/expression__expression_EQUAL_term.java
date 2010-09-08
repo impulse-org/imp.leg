@@ -11,7 +11,7 @@ import java.util.Stack;
  *<li>Rule 40:  expression ::= expression == term
  *</b>
  */
-public class expression6 extends ASTNode implements Iexpression
+public class expression__expression_EQUAL_term extends ASTNode implements Iexpression
 {
     private Iexpression _expression;
     private ASTNodeToken _EQUAL;
@@ -21,10 +21,10 @@ public class expression6 extends ASTNode implements Iexpression
     public ASTNodeToken getEQUAL() { return _EQUAL; }
     public Iterm getterm() { return _term; }
 
-    public expression6(IToken leftIToken, IToken rightIToken,
-                       Iexpression _expression,
-                       ASTNodeToken _EQUAL,
-                       Iterm _term)
+    public expression__expression_EQUAL_term(IToken leftIToken, IToken rightIToken,
+                                             Iexpression _expression,
+                                             ASTNodeToken _EQUAL,
+                                             Iterm _term)
     {
         super(leftIToken, rightIToken);
 
@@ -52,9 +52,9 @@ public class expression6 extends ASTNode implements Iexpression
     public boolean equals(Object o)
     {
         if (o == this) return true;
-        if (! (o instanceof expression6)) return false;
+        if (! (o instanceof expression__expression_EQUAL_term)) return false;
         if (! super.equals(o)) return false;
-        expression6 other = (expression6) o;
+        expression__expression_EQUAL_term other = (expression__expression_EQUAL_term) o;
         if (! _expression.equals(other._expression)) return false;
         if (! _EQUAL.equals(other._EQUAL)) return false;
         if (! _term.equals(other._term)) return false;

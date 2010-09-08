@@ -8,14 +8,14 @@ import java.util.Stack;
 
 /**
  *<b>
- *<li>Rule 44:  term ::= DoubleLiteral
+ *<li>Rule 46:  term ::= false
  *</b>
  */
-public class term1 extends ASTNodeToken implements Iterm
+public class term__false extends ASTNodeToken implements Iterm
 {
-    public IToken getDoubleLiteral() { return leftIToken; }
+    public IToken getfalse() { return leftIToken; }
 
-    public term1(IToken token) { super(token); initialize(); }
+    public term__false(IToken token) { super(token); initialize(); }
 
     public void accept(IAstVisitor v)
     {
