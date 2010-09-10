@@ -178,7 +178,7 @@ public class LEGBuilder extends BuilderBase {
             IParseController parseController= new LEGParseController();
 
             // TODO: Pick a version of the marker creator (or just go with this one)
-            IMessageHandler msgHandler= new MarkerCreator(file, parseController, PROBLEM_MARKER_ID);
+            IMessageHandler msgHandler= new MarkerCreator(file, PROBLEM_MARKER_ID);
             // IMessageHandler msgHandler= new MarkerCreatorWithBatching(file, parseController, this);
 
             parseController.getAnnotationTypeInfo().addProblemMarkerType(getErrorMarkerID());

@@ -579,7 +579,7 @@ public class LEGCompiler {
         IParseController parseController= new LEGParseController();
 
         // Marker creator handles error messages from the parse controller
-        fMsgHandler= new MarkerCreator(file, parseController, PROBLEM_MARKER_ID);
+        fMsgHandler= new MarkerCreator(file, PROBLEM_MARKER_ID);
         //		MarkerCreatorWithBatching markerCreator = new MarkerCreatorWithBatching(file, parseController, PROBLEM_MARKER_ID);
 
         // If we have a kind of parser that might be receptive, tell it
